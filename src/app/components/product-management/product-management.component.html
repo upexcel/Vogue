@@ -5,13 +5,13 @@
       <form #uploadCsvs="ngForm">
         <div class="form-group">
           <label for="csv">Upload CSV:</label>
-          <input type="file" class="form-control" id="csv" (change)="uploadCsv($event)">
+          <input type="file" class="form-control" id="csv" name="csv" ng2FileSelect [uploader]="uploader" [accept]="['text/csv']" required />
         </div>
-        <button class="btn btn-lg btn-primary" (click)="saveCsv(uploadCsvs)" [disabled]="!canUploadCsv">Upload</button>
+        <button class="btn btn-lg btn-primary" (click)="saveCsv(uploadCsvs.value)" [disabled]="!uploadCsvs.form.valid">Upload</button>
       </form>
     </div>
   </div>
-
+<!-- 
   <div class="row">
     <div class="col-12">
       <form #uploadImages="ngForm">
@@ -22,6 +22,6 @@
         <button class="btn btn-lg btn-primary" (click)="saveImages(uploadImages)" [disabled]="!canUploadImage">Upload</button>
       </form>
     </div>
-  </div>
-  
+  </div> -->
+
 </div>

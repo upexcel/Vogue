@@ -1,0 +1,14 @@
+<div class="upload-container">
+  <div class="row">
+    <div class="col-12">
+      <form #uploadImages="ngForm">
+        <div class="form-group">
+          <label for="image">Upload Images:</label>
+          <input type="file" class="form-control" id="images" name="images" ng2FileSelect [uploader]="uploader" [accept]="['application/zip']" required />
+        </div>
+        <button class="btn btn-lg btn-primary" (click)="saveImages(uploadImages.value)">Upload</button>
+      </form>
+    </div>
+  </div>
+
+</div>
