@@ -1,0 +1,27 @@
+<div class="upload-container">
+
+  <div class="row padding-bottom">
+    <div class="col-12">
+      <form #uploadCsvs="ngForm">
+        <div class="form-group">
+          <label for="csv">Upload CSV:</label>
+          <input type="file" class="form-control" id="csv" (change)="uploadCsv($event)">
+        </div>
+        <button class="btn btn-lg btn-primary" (click)="saveCsv(uploadCsvs)" [disabled]="!canUploadCsv">Upload</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form #uploadImages="ngForm">
+        <div class="form-group">
+          <label for="image">Upload Images:</label>
+          <input type="file" class="form-control" id="image" (change)="uploadImage($event)">
+        </div>
+        <button class="btn btn-lg btn-primary" (click)="saveImages(uploadImages)" [disabled]="!canUploadImage">Upload</button>
+      </form>
+    </div>
+  </div>
+  
+</div>
