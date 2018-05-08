@@ -1,3 +1,4 @@
-.no-padding {
-    padding: 0 !important;
+.fixed {
+    position: fixed;
+    height: 100%;
 }

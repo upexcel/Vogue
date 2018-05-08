@@ -6,17 +6,94 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12">
-        <div class="row">
-          <div class="col-4">
-              <mat-form-field>
-                  <mat-select placeholder="Select Purpose">
-                    <mat-option value="alternative">Alternative</mat-option>
-                    <mat-option value="saved">Saved</mat-option>
-                  </mat-select>
-                </mat-form-field>
-          </div>
+      <div class="col-4">
+        <mat-form-field>
+          <mat-select placeholder="Select Purpose">
+            <mat-option value="alternative">Alternative</mat-option>
+            <mat-option value="saved">Saved</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="mp4">Upload Mp4:</label>
+          <input type="file" class="form-control" ng2FileSelect id="mp4" [uploader]="uploader" multiple/>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="block" *ngIf="uploader.queue.length">
+    <div class="row padding-Y">
+      <div class="col-6">
+        Queue progress:
+        <div class="progress">
+          <span class="progress-percent">{{uploader.progress}}%</span>
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+      <div class="col-6 queue-buttons">
+        <button type="button" class="btn btn-success btn-lg" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+          <i class="fas fa-upload"></i> Upload all
+        </button>
+        <button type="button" class="btn btn-warning btn-lg" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+          <i class="fas fa-ban"></i> Cancel all
+        </button>
+        <button type="button" class="btn btn-danger btn-lg" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+          <i class="far fa-trash-alt"></i> Remove all
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th width="50%">Name</th>
+              <th>Size</th>
+              <th>Progress</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of uploader.queue">
+              <td>
+                <strong>{{ item?.file?.name }}</strong>
+              </td>
+              <td nowrap>{{ item?.file?.size/1024/1024 | number:'.1' }} MB</td>
+              <td>
+                <div class="progress" style="margin-bottom: 0;">
+                  <span class="progress-percent">{{item.progress}}%</span>
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                </div>
+              </td>
+              <td class="text-center">
+                <span *ngIf="item.isSuccess">
+                  <kbd>Success</kbd>
+                </span>
+                <span *ngIf="item.isCancel">
+                  <kbd>Cancelled</kbd>
+                </span>
+                <span *ngIf="item.isError">
+                  <kbd>Error</kbd>
+                </span>
+              </td>
+              <td nowrap>
+                <button type="button" class="btn btn-success btn-xs" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                  <i class="fas fa-upload"></i> Upload
+                </button>
+                <button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()" [disabled]="!item.isUploading">
+                  <i class="fas fa-ban"></i> Cancel
+                </button>
+                <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                  <i class="far fa-trash-alt"></i> Remove
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

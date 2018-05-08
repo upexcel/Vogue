@@ -1,18 +1,46 @@
 .mp4-upload {
-    font-size: 1.6rem;
-    color: #fff;
+  font-size: 1.2vw;
 }
 
 .block {
-    margin: 0rem 3rem;
-    border-bottom: 2px solid rgba(128,128,128,0.4);
-    padding: 2rem 0;
+  margin: 0rem 3rem;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.4);
+  padding: 2rem 0;
 }
 
-
 .heading {
-    font-size: 3rem;
-    color: #000;
-    margin-bottom: 3rem;
-    font-weight: bold;
+  font-size: 2.6vw;
+  color: #000;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+th {
+  background: #fff;
+}
+
+.table tr:nth-child(even) {
+  background-color: #fff;
+}
+
+.table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.queue-buttons {
+  padding-top: 1.6rem;
+}
+
+.progress {
+  height: 2rem;
+  position: relative;
+  background: #dbdcdd;
+}
+
+.progress-percent {
+  text-align: center;
+  font-size: 1.2vw;
+  width: 100%;
+  position: absolute;
+  color: white;
 }

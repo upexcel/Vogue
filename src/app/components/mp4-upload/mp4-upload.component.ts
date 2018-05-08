@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FileUploader } from 'ng2-file-upload';
+import { IntermediateStorageService } from '../../services/intermediateStorage.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-mp4-upload',
   templateUrl: './mp4-upload.component.html',
   styleUrls: ['./mp4-upload.component.css']
 })
-export class Mp4UploadComponent implements OnInit {
+export class Mp4UploadComponent implements OnDestroy {
+  uploader: FileUploader;
 
-  purpose = [
-    {value: 'alternative', viewValue: 'alternative'},
-    {value: 'saved', viewValue: 'saved'},
-  ];
+  constructor(public intermediateStorageService: IntermediateStorageService) {
+    
+    this.uploader = new FileUploader({
+      url: 'https://evening-anchorage-3159.herokuapp.com/api/',
+    });
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    if(this.intermediateStorageService.getData()) {
+      console.log(this.intermediateStorageService.getData())
+      this.uploader = this.intermediateStorageService.getData();
+    }
+      //Title: to clear the queue after completion
+      // this.uploader.onCompleteAll = () => {
+      //   this.uploader.clearQueue();
+      // };
+    }
+    
+    ngOnDestroy() {
+      this.intermediateStorageService.setData(this.uploader)
+    }
 }

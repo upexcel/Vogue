@@ -1,5 +1,5 @@
 .create-post {
-    font-size: 1.6rem;
+    font-size: 1.2vw;
     color: #fff;
 }
 
@@ -11,7 +11,7 @@
 
 
 .heading {
-    font-size: 3rem;
+    font-size: 2.6vw;
     color: #000;
     margin-bottom: 3rem;
     font-weight: bold;
@@ -21,7 +21,7 @@ input {
     width: 100%;
     text-align: center;
     padding: .8rem;
-    font-size: 1.2rem;    
+    font-size: .8vw;    
 }
 label {
     color: #000;
@@ -39,5 +39,5 @@ label {
     padding: 1rem;
     background: rgba(128,128,128,0.4);
     border: none;
-    font-size: 1.2rem;
+    font-size: .8vw;
 }

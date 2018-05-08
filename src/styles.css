@@ -1,5 +1,4 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 * {
   padding: 0;
   margin: 0;
@@ -21,4 +20,22 @@ body {
 
 .no-margin {
   margin: 0 !important;
+}
+
+.padding-bottom {
+  padding-bottom: 2rem !important;
+}
+
+.padding-top {
+  padding-top: 2rem !important;
+}
+
+.padding-X {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.padding-Y {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
 }
