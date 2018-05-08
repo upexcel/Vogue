@@ -34,13 +34,16 @@ ul {
 ul li {
   padding: 1rem 0rem 1rem 1rem;
 }
+
 ul li span {
   vertical-align: middle;
 }
+
 ul li .icon {
   font-size: 1.6vw;
   vertical-align: middle;
 }
+
 .active {
   border-left: .4rem solid #f45b63;
   background: #0c1224;

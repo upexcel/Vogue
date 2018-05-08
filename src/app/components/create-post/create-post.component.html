@@ -1,3 +1,5 @@
+<div *ngIf="spinner" class="spinner">
+</div>
 <div class="create-post">
   <form [formGroup]="postForm" (ngSubmit)="onSubmit(postForm.value)">
     <div class="block">
@@ -15,7 +17,7 @@
               </div>
             </div>
             <div class="col-1">
-              <button class="save-button" type="submit" [disabled]="postForm.pristine || postForm.invalid">Save</button>
+              <button class="save-button" type="submit" [disabled]="postForm.pristine || postForm.invalid || spinner">Save</button>
             </div>
           </div>
         </div>

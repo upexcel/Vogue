@@ -12,22 +12,22 @@ export class Mp4UploadComponent implements OnDestroy {
   uploader: FileUploader;
 
   constructor(public intermediateStorageService: IntermediateStorageService) {
-    
+
     this.uploader = new FileUploader({
       url: 'https://evening-anchorage-3159.herokuapp.com/api/',
     });
 
-    if(this.intermediateStorageService.getData()) {
+    if (this.intermediateStorageService.getData()) {
       console.log(this.intermediateStorageService.getData())
       this.uploader = this.intermediateStorageService.getData();
     }
-      //Title: to clear the queue after completion
-      // this.uploader.onCompleteAll = () => {
-      //   this.uploader.clearQueue();
-      // };
-    }
-    
-    ngOnDestroy() {
-      this.intermediateStorageService.setData(this.uploader)
-    }
+    //Title: to clear the queue after completion
+    // this.uploader.onCompleteAll = () => {
+    //   this.uploader.clearQueue();
+    // };
+  }
+
+  ngOnDestroy() {
+    this.intermediateStorageService.setData(this.uploader)
+  }
 }

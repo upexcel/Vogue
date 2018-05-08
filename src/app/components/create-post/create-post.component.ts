@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
+  spinner: boolean;
 
   constructor(public formBuilder: FormBuilder, public _http: HttpClient) { }
 
@@ -29,10 +30,13 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSubmit(formValue) {
+    this.spinner = true;
     this._http.post(`${environment['apiHost']}newsfeed_post/createNewsfeedPost`, formValue).subscribe((res) => {
       console.log(res)
+      this.spinner = false;
       this.postForm.reset();
     }, (err) => {
+      this.spinner = false;
       console.log(err)
     })
   }

@@ -1,28 +1,28 @@
 <div class="upload-container">
-  <div class="row">
+  <div class="row padding">
     <div class="col-12">
       <div class="row">
         <div class="col-12">
           <div class="form-group">
-            <label for="csv">Upload CSV:</label>
-            <input type="file" class="form-control" ng2FileSelect #csv [uploader]="csvUploader" [accept]="['text/csv']" />
+            <label for="image">Upload Image:</label>
+            <input type="file" class="form-control" ng2FileSelect #image [uploader]="imageUploader" [accept]="['application/zip']" />
           </div>
         </div>
       </div>
       <div class="row padding-bottom">
         <div class="col-12">
-          <button type="button" class="btn btn-success btn-lg" (click)="csvUploader.uploadAll()" [disabled]="!csvUploader.getNotUploadedItems().length">
-            <i class="fas fa-upload"></i> Upload CSV
+          <button type="button" class="btn btn-success btn-lg" (click)="imageUploader.uploadAll()" [disabled]="!imageUploader.getNotUploadedItems().length">
+            <i class="fas fa-upload"></i> Upload Image
           </button>
-          <button type="button" class="btn btn-warning btn-lg" (click)="csvUploader.cancelAll()" [disabled]="!csvUploader.isUploading">
+          <button type="button" class="btn btn-warning btn-lg" (click)="imageUploader.cancelAll()" [disabled]="!imageUploader.isUploading">
             <i class="fas fa-ban"></i> Cancel
           </button>
-          <button type="button" class="btn btn-danger btn-lg" (click)="csvUploader.clearQueue(); reset()" [disabled]="!csvUploader.queue.length">
+          <button type="button" class="btn btn-danger btn-lg" (click)="imageUploader.clearQueue(); reset()" [disabled]="!imageUploader.queue.length">
             <i class="far fa-trash-alt"></i> Remove
           </button>
         </div>
       </div>
-      <div class="row" *ngIf="csvUploader.queue.length">
+      <div class="row" *ngIf="imageUploader.queue.length">
         <div class="col-12">
           <table class="table">
             <thead>
@@ -34,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of csvUploader.queue">
+              <tr *ngFor="let item of imageUploader.queue">
                 <td>
                   <strong>{{ item?.file?.name }}</strong>
                 </td>
@@ -63,4 +63,3 @@
       </div>
     </div>
   </div>
-</div>

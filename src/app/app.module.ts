@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { MatSelectModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'
+import { HttpClientModule } from '@angular/common/http';
 
-
+import { LocalStorageService } from './services/local-storage.service';
+import { IntermediateStorageService } from './services/intermediateStorage.service';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -15,9 +17,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { Mp4UploadComponent } from './components/mp4-upload/mp4-upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
+import { ProductPhotoManagementComponent } from './components/product-photo-management/product-photo-management.component';
 import { BrowseContentComponent } from './components/browse-content/browse-content.component';
-import { LocalStorageService } from './services/local-storage.service';
-import { IntermediateStorageService } from './services/intermediateStorage.service';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { IntermediateStorageService } from './services/intermediateStorage.servi
     Mp4UploadComponent,
     HeaderComponent,
     BrowseContentComponent,
+    ProductPhotoManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { IntermediateStorageService } from './services/intermediateStorage.servi
     MatSelectModule,
     BrowserAnimationsModule,
     FileUploadModule,
+    HttpClientModule,
   ],
   providers: [
     LocalStorageService,
