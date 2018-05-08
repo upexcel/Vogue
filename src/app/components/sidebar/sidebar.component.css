@@ -33,10 +33,14 @@ ul {
 
 ul li {
   padding: 1rem 0rem 1rem 1rem;
+  cursor: pointer;
+  
 }
 
 ul li span {
   vertical-align: middle;
+  width: 86%;
+  display: inline-block;
 }
 
 ul li .icon {

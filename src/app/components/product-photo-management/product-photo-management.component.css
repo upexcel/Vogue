@@ -22,3 +22,15 @@
   position: absolute;
   color: white;
 }
+
+.table thead th {
+  vertical-align: bottom;
+  background: #dee2e6;
+  border: none !important
+}
+
+.error {
+  text-align: center;
+  color: #ca1010;
+  font-weight: bold;
+}

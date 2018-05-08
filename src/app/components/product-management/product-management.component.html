@@ -1,26 +1,17 @@
-<div class="upload-container">
+<div class="upload-container shadow">
   <div class="row">
     <div class="col-12">
       <div class="row">
         <div class="col-12">
           <div class="form-group">
             <label for="csv">Upload CSV:</label>
-            <input type="file" class="form-control" ng2FileSelect #csv [uploader]="csvUploader" [accept]="['text/csv']" />
+            <input type="file" class="form-control" ng2FileSelect #csv [uploader]="csvUploader" [accept]="['text/csv']" (change)="checkType($event)"
+            />
           </div>
         </div>
       </div>
-      <div class="row padding-bottom">
-        <div class="col-12">
-          <button type="button" class="btn btn-success btn-lg" (click)="csvUploader.uploadAll()" [disabled]="!csvUploader.getNotUploadedItems().length">
-            <i class="fas fa-upload"></i> Upload CSV
-          </button>
-          <button type="button" class="btn btn-warning btn-lg" (click)="csvUploader.cancelAll()" [disabled]="!csvUploader.isUploading">
-            <i class="fas fa-ban"></i> Cancel
-          </button>
-          <button type="button" class="btn btn-danger btn-lg" (click)="csvUploader.clearQueue(); reset()" [disabled]="!csvUploader.queue.length">
-            <i class="far fa-trash-alt"></i> Remove
-          </button>
-        </div>
+      <div *ngIf=typeError class="error">
+        Please Upload CSV File Only.
       </div>
       <div class="row" *ngIf="csvUploader.queue.length">
         <div class="col-12">
@@ -61,6 +52,35 @@
           </table>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="csvTable && !typeError">
+  <div class="row">
+    <div class="col-12">
+        <table class="table csvTable border m-0">
+          <thead>
+            <tr>
+              <th>Product Id</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Retailer</th>
+              <th>Description</th>
+              <th>Image</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of csvTable.data">
+              <td>{{data.ProductID == null ? 'Not Defined' : data.ProductID}} </td>
+              <td>{{data.ProductName == null ? 'Not Defined' : data.ProductName}}</td>
+              <td>{{data.Category == null ? 'Not Defined' : data.Category}}</td>
+              <td>{{data.Retailer == null ? 'Not Defined' : data.Retailer}}</td>
+              <td>{{data.Description == null ? 'No Description' : data.Description}}</td>
+              <td><img class="rounded-circle" src="{{data.ImageFullsizeURL == null ? 'assets/no-image.png' : data.ImageFullsizeURL}}" alt="{{data.ImageFullsizeURL == null ? 'No Image' : data.ProductID}}"></td>
+            </tr>
+          </tbody>
+        </table>
     </div>
   </div>
 </div>

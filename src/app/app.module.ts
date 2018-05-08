@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { LocalStorageService } from './services/local-storage.service';
 import { IntermediateStorageService } from './services/intermediateStorage.service';
+import { HttpService } from './services/http.service';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -45,7 +46,8 @@ import { BrowseContentComponent } from './components/browse-content/browse-conte
   ],
   providers: [
     LocalStorageService,
-    IntermediateStorageService
+    IntermediateStorageService,
+    HttpService
   ],
   bootstrap: [AppComponent]
 })

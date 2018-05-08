@@ -5,22 +5,12 @@
         <div class="col-12">
           <div class="form-group">
             <label for="image">Upload Image:</label>
-            <input type="file" class="form-control" ng2FileSelect #image [uploader]="imageUploader" [accept]="['application/zip']" />
+            <input type="file" class="form-control" ng2FileSelect #image [uploader]="imageUploader" [accept]="['application/zip']" (change)="checkType($event)" />
           </div>
         </div>
       </div>
-      <div class="row padding-bottom">
-        <div class="col-12">
-          <button type="button" class="btn btn-success btn-lg" (click)="imageUploader.uploadAll()" [disabled]="!imageUploader.getNotUploadedItems().length">
-            <i class="fas fa-upload"></i> Upload Image
-          </button>
-          <button type="button" class="btn btn-warning btn-lg" (click)="imageUploader.cancelAll()" [disabled]="!imageUploader.isUploading">
-            <i class="fas fa-ban"></i> Cancel
-          </button>
-          <button type="button" class="btn btn-danger btn-lg" (click)="imageUploader.clearQueue(); reset()" [disabled]="!imageUploader.queue.length">
-            <i class="far fa-trash-alt"></i> Remove
-          </button>
-        </div>
+      <div *ngIf=typeError class="error">
+        Please Upload Zip File Only.
       </div>
       <div class="row" *ngIf="imageUploader.queue.length">
         <div class="col-12">

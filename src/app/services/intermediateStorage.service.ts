@@ -2,14 +2,32 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class IntermediateStorageService {
-  storeData;
+  storeMp4Data;
+  storeCsvData;
+  storeImageData;
   constructor() { }
 
-  setData(value) {
-    this.storeData = value;
+  setMp4Data(value) {
+    this.storeMp4Data = value;
   }
 
-  getData() {
-    return this.storeData;
+  getMp4Data() {
+    return this.storeMp4Data;
+  }
+
+  setCsvData(value) {
+    this.storeCsvData = value;
+  }
+
+  getCsvData() {
+    return this.storeCsvData;
+  }
+
+  setImageData(value) {
+    this.storeImageData = value;
+  }
+
+  getImageData() {
+    return this.storeImageData;
   }
 }
