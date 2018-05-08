@@ -25,6 +25,18 @@ export class ProductManagementComponent implements OnInit {
   } 
   
   ngOnInit() {
+    let count = 0;
+    let time = setInterval(()=>{
+      console.log('********************************************')
+      console.log(this.imageUploader);
+      if( count == 3 ) {
+        clearInterval(time);
+        console.log("$######################################");
+        console.log(this.csvUploader);
+        
+      }
+      count++;
+    },2000)
   }
 
 /*   uploadCsv(event) {
