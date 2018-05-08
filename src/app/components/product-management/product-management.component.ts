@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
-
+import { environment } from '../../../environments/environment';
+ 
 
 @Component({
   selector: 'app-product-management',
   templateUrl: './product-management.component.html',
   styleUrls: ['./product-management.component.css']
 })
-export class ProductManagementComponent implements OnInit {
+export class ProductManagementComponent {
   imageForm = new FormData();
   csvForm = new FormData();
   csvUploader: FileUploader;
@@ -17,27 +18,13 @@ export class ProductManagementComponent implements OnInit {
   canUploadImage: boolean;
   constructor() { 
     this.csvUploader = new FileUploader({
-      url: 'https://evening-anchorage-3159.herokuapp.com/api/',
+      url: `${environment['apiHost']}products/createProducts`,
     });
     this.imageUploader = new FileUploader({
       url: 'https://evening-anchorage-3159.herokuapp.com/api/',
     });
   } 
   
-  ngOnInit() {
-    let count = 0;
-    let time = setInterval(()=>{
-      console.log('********************************************')
-      console.log(this.imageUploader);
-      if( count == 3 ) {
-        clearInterval(time);
-        console.log("$######################################");
-        console.log(this.csvUploader);
-        
-      }
-      count++;
-    },2000)
-  }
 
 /*   uploadCsv(event) {
     // console.log(event.target.files)
