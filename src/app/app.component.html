@@ -1,2 +1,19 @@
-
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-sm-2 col-2 no-padding fixed">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10 col-sm-10 col-10 offset-md-2 offset-sm-2 offset-2">
+      <div class="row">
+        <div class="col-12 no-padding">
+          <app-header></app-header>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

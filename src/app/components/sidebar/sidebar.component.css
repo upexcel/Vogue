@@ -1,0 +1,50 @@
+.sidebar {
+  background: #1b2133;
+  height: 100%;
+  color: #ffffff;
+}
+
+.title {
+  font-size: 1.6vw;
+  padding: 2rem 3rem;
+  border-bottom: 1px solid #0c1224;
+}
+
+.profile {
+  border-bottom: 1px solid #0c1224;
+  padding: 1rem 0;
+}
+
+.profile-image {
+  width: 6vw;
+  border-radius: 50px;
+  padding: 1rem;
+}
+
+.profile-name {
+  font-size: 1.6vw;
+  padding: 1rem 0;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 1.2vw;
+}
+
+ul li {
+  padding: 1rem 0rem 1rem 1rem;
+}
+
+ul li span {
+  vertical-align: middle;
+}
+
+ul li .icon {
+  font-size: 1.6vw;
+  vertical-align: middle;
+}
+
+.active {
+  border-left: .4rem solid #f45b63;
+  background: #0c1224;
+}

@@ -1,0 +1,62 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e4ebf7;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.padding-bottom {
+  padding-bottom: 2rem !important;
+}
+
+.padding-top {
+  padding-top: 2rem !important;
+}
+
+.padding-X {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.padding-Y {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.spinner {
+  border: .7rem solid #f2f6fc;
+  border-radius: 50%;
+  border-top: .7rem solid #1b2233;
+  width: 5rem;
+  height: 5rem;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

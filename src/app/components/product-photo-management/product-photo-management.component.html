@@ -1,0 +1,65 @@
+<div class="upload-container">
+  <div class="row padding">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="image">Upload Image:</label>
+            <input type="file" class="form-control" ng2FileSelect #image [uploader]="imageUploader" [accept]="['application/zip']" />
+          </div>
+        </div>
+      </div>
+      <div class="row padding-bottom">
+        <div class="col-12">
+          <button type="button" class="btn btn-success btn-lg" (click)="imageUploader.uploadAll()" [disabled]="!imageUploader.getNotUploadedItems().length">
+            <i class="fas fa-upload"></i> Upload Image
+          </button>
+          <button type="button" class="btn btn-warning btn-lg" (click)="imageUploader.cancelAll()" [disabled]="!imageUploader.isUploading">
+            <i class="fas fa-ban"></i> Cancel
+          </button>
+          <button type="button" class="btn btn-danger btn-lg" (click)="imageUploader.clearQueue(); reset()" [disabled]="!imageUploader.queue.length">
+            <i class="far fa-trash-alt"></i> Remove
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="imageUploader.queue.length">
+        <div class="col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="50%">Name</th>
+                <th>Size</th>
+                <th>Progress</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of imageUploader.queue">
+                <td>
+                  <strong>{{ item?.file?.name }}</strong>
+                </td>
+                <td nowrap>{{ item?.file?.size/1024/1024 | number:'.1' }} MB</td>
+                <td>
+                  <div class="progress" style="margin-bottom: 0;">
+                    <span class="progress-percent">{{item.progress}}%</span>
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="item.isSuccess">
+                    <kbd>Success</kbd>
+                  </span>
+                  <span *ngIf="item.isCancel">
+                    <kbd>Cancelled</kbd>
+                  </span>
+                  <span *ngIf="item.isError">
+                    <kbd>Error</kbd>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
