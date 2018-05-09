@@ -40,8 +40,11 @@
                   <span *ngIf="item.isSuccess">
                     <kbd>Success</kbd>
                   </span>
-                  <span *ngIf="!item.isSuccess && item.progress == 100">
+                  <span *ngIf="!item.isSuccess && !item.isError && !item.isCancel && item.progress == 100">
                     <kbd>Processing</kbd>
+                  </span>
+                  <span *ngIf="!item.isSuccess && !item.isError && !item.isCancel && item.progress != 100">
+                    <kbd>Uploading</kbd>
                   </span>
                   <span *ngIf="item.isCancel">
                     <kbd>Cancelled</kbd>
