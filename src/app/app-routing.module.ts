@@ -11,7 +11,7 @@ import { ProductPhotoManagementComponent } from './components/product-photo-mana
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/product-management',
     pathMatch: 'full'
   },
   {

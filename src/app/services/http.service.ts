@@ -11,7 +11,11 @@ export class HttpService {
     return new Promise((resolve, reject) => {
       this.http.get(`${environment['apiHost']}products/getProducts`)
         .subscribe((data) => {
-          resolve(data);
+          if(data['status'] && data['status'] == 1){
+            resolve(data);
+          } else {
+            reject(data);
+          }
         })
     })
   }

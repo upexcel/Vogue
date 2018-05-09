@@ -19,6 +19,7 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   typeError: boolean;
   csvUploader: FileUploader;
   csvTable: any;
+  spinner: boolean;
 
   ngOnInit() {
     if(this.localStorageService.getItem('tableData')) {
@@ -68,11 +69,14 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   }
 
   getProducts() {
+    this.spinner = true;
     this.httpService.getProducts().then((res) => {
-      console.log(res);
-      
+      this.spinner = false;
       this.localStorageService.setItem('tableData',res);
       this.csvTable = this.localStorageService.getItem('tableData');
+    }).catch((err)=>{
+      this.spinner = false;      
+      console.log(err);
     })
   }
 
