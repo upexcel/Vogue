@@ -26,11 +26,40 @@
 .table thead th {
   vertical-align: bottom;
   background: #dee2e6;
-  border: none !important
+  border: none !important;
+  text-align: center;
+}
+
+.csvTable th {
+  background: #fff;
+  font-size: 1vw;
+}
+
+.csvTable tr:nth-child(even) {
+  background-color: #fff;
+}
+
+.csvTable tr td {
+  vertical-align: middle;
+  max-width: 0;
+}
+
+.csvTable tr:nth-child(odd) {
+  background-color: #f2f2f2;
 }
 
 .error {
   text-align: center;
   color: #ca1010;
   font-weight: bold;
+}
+
+caption {
+  caption-side: top;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 1.4vw;
+  padding: .75rem 0
+  ;
 }

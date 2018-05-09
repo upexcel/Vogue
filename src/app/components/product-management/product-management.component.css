@@ -42,6 +42,7 @@
 
 .csvTable tr td {
   vertical-align: middle;
+  max-width: 0;  
 }
 
 .csvTable tr:nth-child(odd) {

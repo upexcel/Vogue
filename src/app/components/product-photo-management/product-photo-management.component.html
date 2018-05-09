@@ -5,7 +5,8 @@
         <div class="col-12">
           <div class="form-group">
             <label for="image">Upload Image:</label>
-            <input type="file" class="form-control" ng2FileSelect #image [uploader]="imageUploader" [accept]="['application/zip']" (change)="checkType($event)" />
+            <input type="file" class="form-control" ng2FileSelect #image [uploader]="imageUploader" [accept]="['application/zip']" (change)="checkType($event)"
+            />
           </div>
         </div>
       </div>
@@ -53,3 +54,46 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="imageTable && !typeError">
+  <div class="row">
+    <div class="col-12">
+      <table class="table csvTable border m-0">
+        <caption>Product Image Association Table</caption>
+        <thead>
+          <tr>
+            <th>Product Id</th>
+            <th  width="70%">Image Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of imageTable">
+            <td class="text-center">{{data.ProductId}} </td>
+            <td class="text-center"><a href="{{data.imageUrl}}">{{data.imageUrl}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- 
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="imageTableError && !typeError">
+  <div class="row">
+    <div class="col-12">
+      <table class="table csvTable border m-0">
+        <caption>Error Table</caption>
+        <thead>
+          <tr>
+            <th>No Relation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of imageTableError">
+            <td class="error">{{data}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->
