@@ -42,6 +42,9 @@
                   <span *ngIf="item.isSuccess">
                     <kbd>Success</kbd>
                   </span>
+                  <span *ngIf="!item.isSuccess && item.progress == 100">
+                    <kbd>Processing</kbd>
+                  </span>
                   <span *ngIf="item.isCancel">
                     <kbd>Cancelled</kbd>
                   </span>
