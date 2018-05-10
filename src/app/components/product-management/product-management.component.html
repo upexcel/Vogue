@@ -64,7 +64,7 @@
   </div>
 </div>
 
-<div class="card my-5 p-1 mx-4 shadow" *ngIf="csvTable && !typeError">
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="csvTable.data.length && !typeError">
   <div class="row">
     <div class="col-12">
         <table class="table csvTable border m-0">
