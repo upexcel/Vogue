@@ -34,6 +34,8 @@ export class ProductPhotoManagementComponent implements OnDestroy {
 
     this.imageUploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
+      this.imageTable = '';
+      this.imageTableError = '';
     }
 
     this.imageUploader.response.subscribe((res) => {

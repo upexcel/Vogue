@@ -83,7 +83,7 @@
     </div>
   </div>
 </div>
-<!-- 
+
 <div class="card my-5 p-1 mx-4 shadow" *ngIf="imageTableError && !typeError">
   <div class="row">
     <div class="col-12">
@@ -91,15 +91,15 @@
         <caption>Error Table</caption>
         <thead>
           <tr>
-            <th>No Relation</th>
+            <th>Unknown Files</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of imageTableError">
-            <td class="error">{{data}}</td>
+            <td class="error">{{data.entry}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-</div> -->
+</div>
