@@ -43,18 +43,18 @@ export class ProductPhotoManagementComponent implements OnDestroy {
         this.response = JSON.parse(res);
         this.imageTable = this.response['data'].length ? this.response['data'] : null;
         this.imageTableError = this.response['errors'].length ? this.response['errors'] : null;
-        console.log(this.response);
       }
-      console.log(this.imageTable);
-      console.log(this.imageTableError);
       this.reset();
     });
   }
-  
+
   checkType(event) {
-    if (this.imageUploader.queue.length > 1) this.imageUploader.queue.shift();
+    if (this.imageUploader.queue.length > 1) {
+      this.imageUploader.queue[0].cancel();
+      this.imageUploader.queue.shift();
+    }
     if (event.target.files[0]) {
-      let validType = ['application/zip'];
+      let validType = ['application/zip', 'application/x-zip-compressed'];
       if (validType.indexOf(event.target.files[0].type) == -1) {
         this.typeError = true;
         this.imageUploader.clearQueue();
@@ -63,11 +63,11 @@ export class ProductPhotoManagementComponent implements OnDestroy {
       }
     }
   }
-  
+
   reset() {
     this.resetImage.nativeElement.value = ""
   }
-  
+
   ngOnDestroy() {
     this.intermediateStorageService.setImageData(this.imageUploader);
     this.reset();

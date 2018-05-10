@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   apiHost: 'http://18.219.135.52:5001/' //For Server
-  // apiHost: 'http://192.168.1.21:5001/' //For Local
+  // apiHost: 'http://192.168.1.8:5001/' //For Local
 };

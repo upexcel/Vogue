@@ -22,22 +22,21 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   spinner: boolean;
 
   ngOnInit() {
-    if(this.localStorageService.getItem('tableData')) {
+    if (this.localStorageService.getItem('tableData')) {
       this.csvTable = this.localStorageService.getItem('tableData');
     }
     this.getProducts();
   }
 
   constructor(public httpService: HttpService, public intermediateStorageService: IntermediateStorageService, public localStorageService: LocalStorageService) {
-    
+
     this.csvUploader = new FileUploader({
       url: `${environment['apiHost']}products/createProducts`,
       // url: 'https://evening-anchorage-3159.herokuapp.com/api/',
       itemAlias: 'file',
-      allowedMimeType: ['text/csv'],
       autoUpload: !this.typeError,
     });
-    
+
     if (this.intermediateStorageService.storeCsvData) {
       this.csvUploader = this.intermediateStorageService.getCsvData();
     }
@@ -45,7 +44,7 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     this.csvUploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     }
-    
+
     this.csvUploader.response.subscribe(res => {
       if (res) {
         this.getProducts();
@@ -56,14 +55,15 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   }
 
   checkType(event) {
-    if (this.csvUploader.queue.length > 1) this.csvUploader.queue.shift();
+    if (this.csvUploader.queue.length > 1) {
+      this.csvUploader.queue[0].cancel();
+      this.csvUploader.queue.shift();
+    }
     if (event.target.files[0]) {
-      let validType = ['text/csv'];
-      if (validType.indexOf(event.target.files[0].type) == -1) {
-        this.typeError = true;
-        this.csvUploader.clearQueue();
+      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() == 'csv') {
+        this.typeError = false;
       } else {
-        this.typeError = false;        
+        this.typeError = true;
       }
     }
   }
@@ -72,10 +72,10 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     this.spinner = true;
     this.httpService.getProducts().then((res) => {
       this.spinner = false;
-      this.localStorageService.setItem('tableData',res);
+      this.localStorageService.setItem('tableData', res);
       this.csvTable = this.localStorageService.getItem('tableData');
-    }).catch((err)=>{
-      this.spinner = false;      
+    }).catch((err) => {
+      this.spinner = false;
       console.log(err);
     })
   }
