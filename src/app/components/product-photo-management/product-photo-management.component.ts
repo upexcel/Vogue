@@ -22,8 +22,6 @@ export class ProductPhotoManagementComponent implements OnDestroy {
   constructor(public intermediateStorageService: IntermediateStorageService, public localStorageService: LocalStorageService) {
     this.imageUploader = new FileUploader({
       url: `${environment['apiHost']}imageProcess/uploadImage`,
-
-      // url: 'https://evening-anchorage-3159.herokuapp.com/api/',
       itemAlias: 'file',
       autoUpload: true,
     });
@@ -54,12 +52,11 @@ export class ProductPhotoManagementComponent implements OnDestroy {
       this.imageUploader.queue.shift();
     }
     if (event.target.files[0]) {
-      let validType = ['application/zip', 'application/x-zip-compressed'];
-      if (validType.indexOf(event.target.files[0].type) == -1) {
+      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() == 'zip') {
+        this.typeError = false;
+      } else {
         this.typeError = true;
         this.imageUploader.clearQueue();
-      } else {
-        this.typeError = false;
       }
     }
   }

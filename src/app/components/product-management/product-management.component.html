@@ -13,7 +13,10 @@
         </div>
       </div>
       <div *ngIf=typeError class="error">
-        Please Upload CSV File Only.
+        Please Upload <strong>CSV File</strong> Only.
+      </div>
+      <div *ngIf=badCsv class="error">
+        Csv Field <strong>ProductID & ProductName</strong> must not be Empty.
       </div>
       <div class="row" *ngIf="csvUploader.queue.length">
         <div class="col-12">
