@@ -23,20 +23,20 @@ export class CreatePostComponent implements OnInit {
 
   createForm() {
     this.postForm = this.formBuilder.group({
-      title: ["", Validators.required],
-      userID: ["", Validators.required],
-      inspirationalPhotoURL: ["", Validators.required],
-      product1ID: ["", Validators.required],
-      product2ID: ["", Validators.required],
-      product3ID: ["", Validators.required],
-      product4ID: ["", Validators.required]
-    })
+      title: ['', Validators.required],
+      userID: ['', Validators.required],
+      inspirationalPhotoURL: ['', Validators.required],
+      product1ID: ['', Validators.required],
+      product2ID: ['', Validators.required],
+      product3ID: ['', Validators.required],
+      product4ID: ['', Validators.required]
+    });
   }
 
   onSubmit(formValue) {
     this.spinner = true;
     this._http.post(`${environment['apiHost']}newsfeed_post/createNewsfeedPost`, formValue).subscribe((res) => {
-      console.log(res)
+      console.log(res);
       this.spinner = false;
       if (res['status'] == 1) {
         this.snackBar.open('Post Added Successfully', '', {
