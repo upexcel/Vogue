@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload'
 import { HttpClientModule } from '@angular/common/http';
@@ -43,6 +43,7 @@ import { BrowseContentComponent } from './components/browse-content/browse-conte
     BrowserAnimationsModule,
     FileUploadModule,
     HttpClientModule,
+    MatSnackBarModule,
   ],
   providers: [
     LocalStorageService,

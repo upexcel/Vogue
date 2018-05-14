@@ -48,3 +48,32 @@ label {
   top: 2rem;
   right: 2rem;
 }
+
+
+.table {
+  font-size: 1vw;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  background: #dee2e6;
+  border: none !important
+}
+
+.csvTable th {
+  background: #fff;
+}
+
+.csvTable tr:nth-child(even) {
+  background-color: #fff;
+}
+
+.csvTable tr td {
+  vertical-align: middle;
+  max-width: 0;  
+}
+
+.csvTable tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+

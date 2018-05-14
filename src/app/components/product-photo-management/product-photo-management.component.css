@@ -62,3 +62,10 @@ caption {
   padding: .75rem 0
   ;
 }
+
+.overflow {
+  max-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

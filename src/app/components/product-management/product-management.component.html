@@ -31,7 +31,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of csvUploader.queue">
-                <td>
+                <td title="{{ item?.file?.name }}" class="overflow">
                   <strong>{{ item?.file?.name }}</strong>
                 </td>
                 <td nowrap>{{ item?.file?.size/1024/1024 | number:'.1' }} MB</td>

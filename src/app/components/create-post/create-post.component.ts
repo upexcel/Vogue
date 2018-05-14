@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { MatSnackBar } from '@angular/material';
+
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -9,12 +11,14 @@ import { environment } from '../../../environments/environment';
 })
 export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
+  allPost: any;
   spinner: boolean;
 
-  constructor(public formBuilder: FormBuilder, public _http: HttpClient) { }
+  constructor(public formBuilder: FormBuilder, public _http: HttpClient, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.createForm();
+    this.fetchPost();
   }
 
   createForm() {
@@ -34,11 +38,28 @@ export class CreatePostComponent implements OnInit {
     this._http.post(`${environment['apiHost']}newsfeed_post/createNewsfeedPost`, formValue).subscribe((res) => {
       console.log(res)
       this.spinner = false;
+      if (res['status'] == 1) {
+        this.snackBar.open('Post Added Successfully', '', {
+          duration: 2000,
+        });
+        this.fetchPost();
+      }
       this.postForm.reset();
     }, (err) => {
       this.spinner = false;
-      console.log(err)
+      console.log(err);
     })
+  }
+
+  fetchPost() {
+    this.spinner = true;
+    this._http.get(`${environment['apiHost']}newsfeed_post/getNewsfeedPost`).subscribe((res) => {
+      this.spinner = false;
+      this.allPost = res['data'];
+    }, (err) => {
+      this.spinner = false;
+      console.log(err);
+    });
   }
 
 }
