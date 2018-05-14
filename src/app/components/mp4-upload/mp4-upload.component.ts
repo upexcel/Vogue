@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { IntermediateStorageService } from '../../services/intermediateStorage.service';
 import * as _ from 'lodash';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-mp4-upload',
@@ -14,13 +15,24 @@ export class Mp4UploadComponent implements OnDestroy {
   constructor(public intermediateStorageService: IntermediateStorageService) {
 
     this.uploader = new FileUploader({
-      url: 'https://evening-anchorage-3159.herokuapp.com/api/',
+      url: `${environment['apiHost']}imageProcess/uploadMp4`,
+      itemAlias: 'file'
     });
+
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+    };
 
     if (this.intermediateStorageService.storeMp4Data) {
       this.uploader = this.intermediateStorageService.getMp4Data();
     }
-    //Title: to clear the queue after completion
+
+    this.uploader.response.subscribe(res => {
+      if (res) {
+        console.log(res)
+      }
+    });
+    // Title: to clear the queue after completion
     // this.uploader.onCompleteAll = () => {
     //   this.uploader.clearQueue();
     // };
