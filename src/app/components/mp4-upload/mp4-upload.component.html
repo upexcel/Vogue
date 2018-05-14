@@ -98,3 +98,28 @@
     </div>
   </div>
 </div>
+
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="MP4Table && MP4Table.data.length">
+  <div class="row">
+    <div class="col-12">
+      <table class="table csvTable border m-0">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Cloud Url</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of MP4Table.data">
+            <td>{{data.id == null ? 'Not Defined' : data.id}} </td>
+            <td>{{data.cloudUrl == null ? 'Not Defined' : data.cloudUrl}}</td>
+            <td>
+              <button mat-button (click)="viewVideo(data.cloudUrl)">View</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

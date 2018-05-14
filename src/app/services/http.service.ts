@@ -11,13 +11,25 @@ export class HttpService {
     return new Promise((resolve, reject) => {
       this.http.get(`${environment['apiHost']}products/getProducts`)
         .subscribe((data) => {
-          if(data['status'] && data['status'] == 1){
+          if (data['status'] && data['status'] === 1) {
             resolve(data);
           } else {
             reject(data);
           }
-        })
-    })
+        });
+    });
+  }
+  getMP4s() {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${environment['apiHost']}imageProcess/getMp4`)
+        .subscribe((data) => {
+          if (data['status'] && data['status'] === 1) {
+            resolve(data);
+          } else {
+            reject(data);
+          }
+        });
+    });
   }
 
 }
