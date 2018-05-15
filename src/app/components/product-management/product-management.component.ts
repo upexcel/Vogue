@@ -24,15 +24,13 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   csvJson: any;
   badCsv: boolean;
   spinner: boolean;
-
-  ngOnInit() {
-    if (this.localStorageService.getItem('tableData')) {
-      this.csvTable = this.localStorageService.getItem('tableData');
-    }
-    this.getProducts();
-  }
-
-  constructor(public httpService: HttpService, public intermediateStorageService: IntermediateStorageService, public localStorageService: LocalStorageService) {
+  productSearchText: string;
+  errorMessage: string;
+  constructor(
+    public httpService: HttpService,
+    public intermediateStorageService: IntermediateStorageService,
+    public localStorageService: LocalStorageService
+  ) {
     this.csvUploader = new FileUploader({
       url: `${environment['apiHost']}products/createProducts`,
       itemAlias: 'file',
@@ -45,15 +43,23 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
 
     this.csvUploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
-    }
+    };
 
     this.csvUploader.response.subscribe(res => {
-      if (res) {
-        this.getProducts();
-      }
+      // if (res) {
+      //   this.getProducts();
+      // }
       this.reset();
     });
   }
+
+  ngOnInit() {
+    // if (this.localStorageService.getItem('tableData')) {
+    //   this.csvTable = this.localStorageService.getItem('tableData');
+    // }
+    // this.getProducts();
+  }
+
 
   checkType(event) {
     this.typeError = false;
@@ -63,28 +69,28 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
       this.csvUploader.queue.shift();
     }
     if (event.target.files[0]) {
-      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() == 'csv') {
+      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() === 'csv') {
         this.typeError = false;
       } else {
         this.typeError = true;
         this.csvUploader.clearQueue();
       }
-      let reader: FileReader = new FileReader();
+      const reader: FileReader = new FileReader();
       reader.readAsText(event.target.files[0]);
       reader.onload = (e) => {
-        let csv: string = reader.result;
+        const csv: string = reader.result;
         this.csvToJson(csv);
-      }
+      };
     }
   }
 
   csvToJson(csv) {
-    let lines = csv.split("\n");
+    const lines = csv.split('\n');
     this.csvJson = [];
-    let headers = lines[0].split(",");
+    const headers = lines[0].split(',');
     for (let i = 1; i < lines.length; i++) {
-      let obj = {};
-      let currentline = lines[i].split(",");
+      const obj = {};
+      const currentline = lines[i].split(',');
       for (let j = 0; j < headers.length; j++) {
         obj[headers[j]] = currentline[j];
       }
@@ -92,18 +98,18 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     }
     _.forEach(this.csvJson, (value, key) => {
       _.forEach(value, (data, field) => {
-        if (field == 'ProductID' || field == 'ProductName') {
-          if (data == "") {
+        if (field === 'ProductID' || field === 'ProductName') {
+          if (data === '') {
             this.badCsv = true;
             this.csvUploader.clearQueue();
             return false;
           }
         }
-      })
+      });
       if (this.badCsv) {
         return false;
       }
-    })
+    });
   }
 
   getProducts() {
@@ -115,15 +121,35 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     }).catch((err) => {
       this.spinner = false;
       console.log(err);
-    })
+    });
+  }
+
+  searchProducts(productId) {
+    if (!productId) {
+      return false;
+    }
+    this.spinner = true;
+    this.errorMessage = null;
+    this.csvTable = [];
+    this.httpService.searchProduct(productId).then((res) => {
+      this.spinner = false;
+      console.log(res);
+      if (res && res['data'].length === 0) {
+        this.errorMessage = 'Product Not Found !';
+      }
+      this.csvTable = res;
+    }).catch((err) => {
+      this.spinner = false;
+      console.log(err);
+    });
   }
 
   reset() {
-    this.resetCsv.nativeElement.value = "";
+    this.resetCsv.nativeElement.value = '';
   }
 
   ngOnDestroy() {
-    this.intermediateStorageService.setCsvData(this.csvUploader)
+    this.intermediateStorageService.setCsvData(this.csvUploader);
   }
 
 }

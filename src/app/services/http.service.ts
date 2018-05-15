@@ -31,5 +31,17 @@ export class HttpService {
         });
     });
   }
+  searchProduct(productID) {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${environment['apiHost']}products/searchProducts/${productID}`)
+        .subscribe((data) => {
+          if (data['status'] && data['status'] === 1) {
+            resolve(data);
+          } else {
+            reject(data);
+          }
+        });
+    });
+  }
 
 }

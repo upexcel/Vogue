@@ -13,10 +13,12 @@
         </div>
       </div>
       <div *ngIf=typeError class="error">
-        Please Upload <strong>CSV File</strong> Only.
+        Please Upload
+        <strong>CSV File</strong> Only.
       </div>
       <div *ngIf=badCsv class="error">
-        Csv Field <strong>ProductID & ProductName</strong> must not be Empty.
+        Csv Field
+        <strong>ProductID & ProductName</strong> must not be Empty.
       </div>
       <div class="row" *ngIf="csvUploader.queue.length">
         <div class="col-12">
@@ -66,32 +68,67 @@
     </div>
   </div>
 </div>
-
-<div class="card my-5 p-1 mx-4 shadow" *ngIf="csvTable.data.length">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group col-md-12">
+        <input class="form-control py-2 shadow border-right-0 border" [(ngModel)]="productSearchText" placeholder="Enter Product Id"
+          type="search" id="searchbox" (keyup.enter)="searchProducts(productSearchText)">
+        <span class="input-group-append shadow">
+          <button class="btn btn-outline-secondary border-left-0 border p-4" [disabled]="!productSearchText || productSearchText.length == 0"
+            id="search-button" (click)="searchProducts(productSearchText)" type="button">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 class="text-center p-4" *ngIf="errorMessage">
+  <span class="badge badge-danger">{{errorMessage}}</span>
+</h3>
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="!errorMessage && csvTable && csvTable.data">
   <div class="row">
     <div class="col-12">
-        <table class="table csvTable border m-0">
-          <thead>
-            <tr>
-              <th>Product Id</th>
-              <th>Product Name</th>
-              <th>Category</th>
-              <th>Retailer</th>
-              <th>Description</th>
-              <th>Image</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of csvTable.data">
-              <td>{{data.ProductID == null ? 'Not Defined' : data.ProductID}} </td>
-              <td>{{data.ProductName == null ? 'Not Defined' : data.ProductName}}</td>
-              <td>{{data.Category == null ? 'Not Defined' : data.Category}}</td>
-              <td>{{data.Retailer == null ? 'Not Defined' : data.Retailer}}</td>
-              <td>{{data.Description == null ? 'No Description' : data.Description}}</td>
-              <td><img class="rounded-circle" src="{{data.ImageFullsizeURL == null ? 'assets/no-image.png' : data.ImageFullsizeURL}}" alt="{{data.ImageFullsizeURL == null ? 'No Image' : data.ProductID}}"></td>
-            </tr>
-          </tbody>
-        </table>
+      <table class="table csvTable border m-0">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Colour1</th>
+            <th>Colour2</th>
+            <th>Colour3</th>
+            <th>Description</th>
+            <th>Designer</th>
+            <th>Image Full</th>
+            <th>Image Thumb</th>
+            <th>Price</th>
+            <th>ProductID</th>
+            <th>ProductName</th>
+            <th>Retailer</th>
+            <th>RetailerURL</th>
+            <th>Subcategory</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of csvTable.data">
+            <td>{{data.Category}}</td>
+            <td>{{data.Colour1}}</td>
+            <td>{{data.Colour2}}</td>
+            <td>{{data.Colour3}}</td>
+            <td>{{data.Description}}</td>
+            <td>{{data.Designer}}</td>
+            <td>{{data.ImageFullsizeURL}}</td>
+            <td>{{data.ImageThumbnaiURL}}</td>
+            <td>{{data.Price}}</td>
+            <td>{{data.ProductID}}</td>
+            <td>{{data.ProductName}}</td>
+            <td>{{data.Retailer}}</td>
+            <td>{{data.RetailerURL}}</td>
+            <td>{{data.Subcategory}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

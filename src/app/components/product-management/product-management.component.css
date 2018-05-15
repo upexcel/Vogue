@@ -71,3 +71,9 @@ td img {
   top: 2rem;
   right: 2rem;
 }
+#searchbox {
+  font-size: 1.6vw;
+}
+#search-button {
+  font-size: 1vw;
+}
