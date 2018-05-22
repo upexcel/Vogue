@@ -77,16 +77,3 @@ The application structure presented below is to be strictly followed while devel
 ## Styles
 
 We are using `.scss` to style this application. We emphasize not to use inline as much possible and use class instead. Module structure should be followed to create a `.scss` file for a component.
-### example of styles for **auth** module
-
-```
-src
-├─ styles                    # Application-wide styles (generally settings)
-│  ├─ main.scss               # Imports all scss form the diffrent modules (i.e. 'import 'auth/index.scss'')
-│  └─ auth                    # Contains scss for the respective modules
-│     ├─ index.scss           # Import all scss files for this module (i.e. login.scss, forgotPassword.scss, logout.scss ) │and also define common styles here
-│     ├─ login.scss           # Define styles for login container and its successive components
-│     ├─ forgotPassword.scss  # Define styles for forgot password container and its successive components
-│     └─ logout.scss          # Define styles for logout container and its successive components
-
-```
