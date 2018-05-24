@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { NewsfeedModule } from './newsfeed/newsfeed.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CollectionModule } from './collection/collection.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
     CoreModule,
     SharedModule,
     NewsfeedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CollectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

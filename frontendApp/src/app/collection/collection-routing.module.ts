@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticationGuard } from '../core/authentication/authentication.guard';
-import { NewsfeedComponent } from './newsfeed.component';
+import { CollectionComponent } from './collection.component'
 
 const routes: Routes = [
-  { path: '', component: NewsfeedComponent, canActivate: [AuthenticationGuard], data: { title: 'newsfeed' } }
+  { path: '', component: CollectionComponent, canActivate: [AuthenticationGuard], data: { title: 'CollectionComponent' } }
 ];
 
 @NgModule({
@@ -12,4 +12,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class NewsfeedRoutingModule { }
+export class CollectionRoutingModule { }
