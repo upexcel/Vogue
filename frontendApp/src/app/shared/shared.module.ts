@@ -2,16 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LoaderComponent } from './loader/loader.component';
-
+import { MainHeaderComponent } from './main-header/main-header.component';
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    LoaderComponent
+    LoaderComponent,
+    MainHeaderComponent
   ],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    MainHeaderComponent
   ]
 })
 export class SharedModule { }
