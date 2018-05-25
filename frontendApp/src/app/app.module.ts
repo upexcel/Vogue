@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from '../environments/environment';
 import { CoreModule } from './core/core.module';
@@ -19,6 +20,7 @@ import { CollectionModule } from './collection/collection.module';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     CoreModule,
     SharedModule,
     NewsfeedModule,
