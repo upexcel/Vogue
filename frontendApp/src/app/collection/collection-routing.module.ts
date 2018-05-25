@@ -4,7 +4,7 @@ import { AuthenticationGuard } from '../core/authentication/authentication.guard
 import { CollectionComponent } from './collection.component'
 
 const routes: Routes = [
-  { path: '', component: CollectionComponent, canActivate: [AuthenticationGuard], data: { title: 'CollectionComponent' } }
+  { path: '', component: CollectionComponent, canActivate: [AuthenticationGuard], data: { title: 'CollectionComponent', depth: 2 } }
 ];
 
 @NgModule({

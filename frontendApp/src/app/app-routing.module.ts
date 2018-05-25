@@ -5,12 +5,10 @@ const routes: Routes = [
     {
         path: 'newsfeed',
         loadChildren: 'app/newsfeed/newsfeed.module#NewsfeedModule',
-        data: { animation: 'newsfeed' }
     },
     {
         path: 'collection',
         loadChildren: 'app/collection/collection.module#CollectionModule',
-        data: { animation: 'newsfeed' }
     },
     {
         path: '',

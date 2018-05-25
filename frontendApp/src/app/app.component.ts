@@ -6,7 +6,9 @@ import {
   animate,
   transition,
   query,
-  stagger
+  stagger,
+  group,
+  keyframes
 } from '@angular/animations';
 
 @Component({
@@ -14,38 +16,49 @@ import {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
-    trigger('routerAnimation', [
-      transition('* <=> *', [
-        // Initial state of new route
-        query(':enter',
-          style({
-            position: 'fixed',
-            width: '100%',
-            transform: 'translateX(-100%)'
-          }),
-          { optional: true }),
-
-        // move page off screen right on leave
-        query(':leave',
-          animate('500ms ease',
-            style({
-              position: 'fixed',
-              width: '100%',
-              transform: 'translateX(100%)'
-            })
+    trigger('routeAnimation', [
+      transition('1 => 2, 2 => 3', [
+        style({ height: '!' }),
+        query(':enter', style({ transform: 'translateX(100%)' })),
+        query(':enter, :leave', style({ position: 'absolute', top: 0, left: 0, right: 0 })),
+        // animate the leave page away
+        group([
+          query(':leave', [
+            animate('.6s ease-in', keyframes([
+              style({ opacity: 1, transform: 'translateX(0%)', offset: 0 }),
+              style({ opacity: 0, transform: 'translateX(-100%)', offset: 1.0 }),
+            ]))
+          ]),
+          // and now reveal the enter
+          query(':enter',
+            animate('.6s ease-in', keyframes([
+              style({ opacity: 0, transform: 'translateX(100%)', offset: 0 }),
+              style({ opacity: 1, transform: 'translateX(0%)', offset: 1 }),
+            ]))
           ),
-          { optional: true }),
-
-        // move page in screen from left to right
-        query(':enter',
-          animate('500ms ease',
-            style({
-              opacity: 1,
-              transform: 'translateX(0%)'
-            })
+        ]),
+      ]),
+      transition('3 => 2, 2 => 1', [
+        style({ height: '!' }),
+        query(':enter', style({ transform: 'translateX(-100%)' })),
+        query(':enter, :leave', style({ position: 'absolute', top: 0, left: 0, right: 0 })),
+        // animate the leave page away
+        group([
+          query(':leave', [
+            animate('.6s ease-in', keyframes([
+              style({ opacity: 1, transform: 'translateX(0%)', offset: 0 }),
+              style({ opacity: 0, transform: 'translateX(100%)', offset: 1 }),
+            ]))
+          ]),
+          // and now reveal the enter
+          query(':enter',
+            animate('.6s ease-in', keyframes([
+              style({ opacity: 0, transform: 'translateX(-100%)', offset: 0 }),
+              style({ opacity: 1, transform: 'translateX(0%)', offset: 1 }),
+            ]))
           ),
-          { optional: true }),
-      ])
+        ]),
+      ]),
     ])
   ]
 })
@@ -55,7 +68,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() { }
 
-  getRouteAnimation(outlet) {
-    return outlet.activatedRouteData.animation
+  // getRouteAnimation(outlet) {
+  //   return outlet.activatedRouteData.animation
+  // }
+  getDepth(outlet) {
+    console.log(outlet.activatedRouteData['depth'])
+    return outlet.activatedRouteData['depth'] || 1;
   }
 }
