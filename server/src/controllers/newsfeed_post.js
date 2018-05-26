@@ -10,7 +10,7 @@ export class newsfeed_postController extends BaseAPIController {
     }
 
     getNewsfeedPost = (req, res, next) => {
-        db.newsfeed_post.findAll({}).then((data) => {
+        db.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then((data) => {
             res.json({ status: 1, data: data })
         }, (err) => this.handleErrorResponse(res, err))
     }
@@ -24,6 +24,18 @@ export class newsfeed_postController extends BaseAPIController {
     deleteNewsfeedPost = (req, res, next) => {
         db.newsfeed_post.destroy({ where: { id: req.params.id } }).then((response) => {
             res.json({ status: 1, data: response })
+        }, (err) => this.handleErrorResponse(res, err))
+    }
+
+    NewsfeedPostwithProducts = (req, res, next) => {
+        db.newsfeed_post.findOne({ where: { id: req.params.id } }).then((response) => {
+            let products = [];
+            products.push(response.product1ID, response.product2ID, response.product3ID, response.product4ID)
+            db.products.findAll({ where: { ProductID: products } }).then((products) => {
+                response = JSON.parse(JSON.stringify(response));
+                response.products = products
+                res.json({ status: 1, data: response })
+            })
         }, (err) => this.handleErrorResponse(res, err))
     }
 
