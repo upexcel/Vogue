@@ -31,6 +31,7 @@ export class newsfeed_postController extends BaseAPIController {
         db.newsfeed_post.findOne({ where: { id: req.params.id } }).then((response) => {
             let products = [];
             products.push(response.product1ID, response.product2ID, response.product3ID, response.product4ID)
+
             db.products.findAll({ where: { ProductID: products } }).then((products) => {
                 response = JSON.parse(JSON.stringify(response));
                 response.products = products
