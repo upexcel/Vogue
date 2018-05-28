@@ -10,9 +10,11 @@ export class newsfeed_postController extends BaseAPIController {
     }
 
     getNewsfeedPost = (req, res, next) => {
-        db.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then((data) => {
-            res.json({ status: 1, data: data })
-        }, (err) => this.handleErrorResponse(res, err))
+        db.newsfeed_post.count({}).then((count) => {
+            db.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then((data) => {
+                res.json({ status: 1, data: data, totalCount: count })
+            }, (err) => this.handleErrorResponse(res, err))
+        })
     }
 
     updateNewsfeedPost = (req, res, next) => {
