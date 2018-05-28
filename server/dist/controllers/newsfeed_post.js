@@ -46,10 +46,12 @@ var newsfeed_postController = exports.newsfeed_postController = function (_BaseA
                 return _this.handleErrorResponse(res, err);
             });
         }, _this.getNewsfeedPost = function (req, res, next) {
-            _db2.default.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then(function (data) {
-                res.json({ status: 1, data: data });
-            }, function (err) {
-                return _this.handleErrorResponse(res, err);
+            _db2.default.newsfeed_post.count({}).then(function (count) {
+                _db2.default.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then(function (data) {
+                    res.json({ status: 1, data: data, totalCount: count });
+                }, function (err) {
+                    return _this.handleErrorResponse(res, err);
+                });
             });
         }, _this.updateNewsfeedPost = function (req, res, next) {
             _db2.default.newsfeed_post.update(req.body, { where: { id: req.body.id } }).then(function (response) {

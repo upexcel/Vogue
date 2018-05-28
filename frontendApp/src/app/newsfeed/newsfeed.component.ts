@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../shared/api-service/api-service';
-import { VirtualScrollComponent } from 'angular2-virtual-scroll';
+import { VirtualScrollComponent, ChangeEvent } from 'angular2-virtual-scroll';
 
 @Component({
   selector: 'app-newsfeed',
@@ -9,8 +9,9 @@ import { VirtualScrollComponent } from 'angular2-virtual-scroll';
 })
 export class NewsfeedComponent implements OnInit {
   page = 1;
-  limit = 1000;
-  items = ['Item1', 'Item2', 'Item3'];
+  limit = 10;
+  items = [];
+  loading: boolean;
   scrollList: any;
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
@@ -19,15 +20,33 @@ export class NewsfeedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getNewsFeeds();
-  }
-
-  getNewsFeeds() {
-    this._apiService.getNewsfeedPost(this.page, this.limit).subscribe((res) => {
-      console.log(res['data'][0])
-      this.items = res['data']
+    this.getNewsFeeds(this.page, this.limit).then((res: Array<any>) => {
+      this.items = res;
     }, (err) => {
       console.log(err)
+    });
+  }
+
+  onListChange(event: ChangeEvent) {
+    if (event.end !== this.items.length) { return };
+    this.loading = true;
+    ++this.page;
+    this.getNewsFeeds(this.page, this.limit).then(chunk => {
+      this.items = this.items.concat(chunk);
+      this.loading = false;
+    }, () => this.loading = false);
+  }
+
+  getNewsFeeds(page, limit) {
+    return new Promise((resolve, reject) => {
+      this._apiService.getNewsfeedPost(page, limit).subscribe((res) => {
+        console.log(res['data'][0])
+        // this.items = res['data']
+        resolve(res['data']);
+      }, (err) => {
+        console.log(err)
+        reject(err);
+      })
     })
   }
 

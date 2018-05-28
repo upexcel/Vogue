@@ -1,6 +1,6 @@
 <app-main-header></app-main-header>
 <div class="main-section">
-    <virtual-scroll [items]="items" (update)="scrollList = $event">
+    <virtual-scroll [items]="items" (update)="scrollList = $event" (change)="onListChange($event)">
         <div class="newsfeeds" style="height: 450px; overflow: hidden;" *ngFor="let item of scrollList; let i = index">
             <div class="newsfeed-title">
                 <!-- <h5>Black & yellow in winter</h5> -->
@@ -17,5 +17,6 @@
                 <img src="{{item.inspirationalPhotoURL}}" class="mx-auto d-block">
             </div>
         </div>
+        <div *ngIf="loading" class="loader">Loading...</div>
     </virtual-scroll>
 </div>
