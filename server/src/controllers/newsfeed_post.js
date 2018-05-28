@@ -10,11 +10,31 @@ export class newsfeed_postController extends BaseAPIController {
     }
 
     getNewsfeedPost = (req, res, next) => {
+        let finalData = []
         db.newsfeed_post.count({}).then((count) => {
             db.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then((data) => {
-                res.json({ status: 1, data: data, totalCount: count })
+                data = JSON.parse(JSON.stringify(data));
+                getUserData(data, function(resp) {
+                    res.json({ status: 1, data: resp, totalCount: count })
+                })
             }, (err) => this.handleErrorResponse(res, err))
         })
+        let getUserData = (data, callback) => {
+            if (data.length) {
+                let newsFeed = data.splice(0, 1)[0];
+                db.users.findOne({ where: { id: newsFeed.userID } }).then((user) => {
+                    newsFeed.userData = user;
+                    finalData.push(newsFeed)
+                    if (data.length) {
+                        getUserData(data, callback)
+                    } else {
+                        callback(finalData)
+                    }
+                })
+            } else {
+                callback(finalData)
+            }
+        }
     }
 
     updateNewsfeedPost = (req, res, next) => {
@@ -37,7 +57,15 @@ export class newsfeed_postController extends BaseAPIController {
             db.products.findAll({ where: { ProductID: products } }).then((products) => {
                 response = JSON.parse(JSON.stringify(response));
                 response.products = products
-                res.json({ status: 1, data: response })
+                if (response.userID) {
+                    db.users.findOne({ where: { id: response.userID } }).then((userData) => {
+                        response.userData = userData
+                        res.json({ status: 1, data: response })
+
+                    })
+                } else {
+                    res.json({ status: 1, data: response })
+                }
             })
         }, (err) => this.handleErrorResponse(res, err))
     }
