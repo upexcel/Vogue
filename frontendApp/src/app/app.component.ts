@@ -68,11 +68,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() { }
 
-  // getRouteAnimation(outlet) {
-  //   return outlet.activatedRouteData.animation
-  // }
   getDepth(outlet) {
-    console.log(outlet.activatedRouteData['depth'])
     return outlet.activatedRouteData['depth'] || 1;
   }
 }
