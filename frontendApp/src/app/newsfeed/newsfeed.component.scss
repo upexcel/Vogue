@@ -1,0 +1,39 @@
+.newsfeed-title {
+    text-align: center;
+    margin-top: 4vw;
+    h5 {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 1px;
+            background: #000;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}
+
+.newsfeed-profile-container {
+    position: relative;
+    .avatar {
+        width: 40px;
+    }
+    .profile-details {
+        position: absolute;
+        top: 6px;
+        left: 54px;
+        font-size: 10px;
+        font-family: 'Source Sans Pro', sans-serif !important;
+    }
+}
+
+.newsfeed-image-container {
+    img {
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+}
