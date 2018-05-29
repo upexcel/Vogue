@@ -7,7 +7,7 @@ const routes: Routes = [
         loadChildren: 'app/newsfeed/newsfeed.module#NewsfeedModule',
     },
     {
-        path: 'collection',
+        path: 'collection/:id',
         loadChildren: 'app/collection/collection.module#CollectionModule',
     },
     {

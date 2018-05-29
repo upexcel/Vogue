@@ -10,27 +10,29 @@
       <br>www.styleher.com</div>
     <div class="div-block"></div>
   </div>
-  <div class="collection-product-container w-container">
-    <div class="collection-favourites-container">
-      <img src="assets/images/favourites-icon.jpg">
-    </div>
-    <div class="collection-alternatives-container-text w-clearfix">
-      <div class="alternatives-block">
-        <div class="alternatives-box-text">242</div>
-        <div class="alternatives-below-text">alternatives</div>
+  <div *ngIf="productData && productData.products">
+    <div class="collection-product-container w-container"*ngFor="let item of productData.products">
+      <div class="collection-favourites-container">
+        <img src="assets/images/favourites-icon.jpg">
       </div>
-      <div class="alternatives-beneath"></div>
-    </div>
-    <div class="collection-imge-holder">
-      <img src="assets/images/collection-dress.jpg" class="collection-productimage">
-    </div>
-    <div class="collection-mainpage-product-text">
-      <div class="collection-text-descretailer">
-        <strong class="bold-text">Stella McCartney</strong>
-        <br>Gathered Cocoon Trousers</div>
+      <div class="collection-alternatives-container-text w-clearfix">
+        <div class="alternatives-block">
+          <div class="alternatives-box-text">242</div>
+          <div class="alternatives-below-text">alternatives</div>
+        </div>
+        <div class="alternatives-beneath"></div>
+      </div>
+      <div class="collection-imge-holder">
+        <img src="{{item.ImageFullsizeURL}}" class="collection-productimage" (click)="addProduct(item)">
+      </div>
+      <div class="collection-mainpage-product-text">
+        <div class="collection-text-descretailer">
+          <strong class="bold-text">Stella McCartney</strong>
+          <br>Gathered Cocoon Trousers</div>
+      </div>
     </div>
   </div>
-  <div class="collection-product-container w-container">
+  <!-- <div class="collection-product-container w-container">
     <div class="collection-favourites-container">
       <img src="assets/images/favourites-icon.jpg">
     </div>
@@ -42,7 +44,7 @@
       <div class="alternatives-beneath"></div>
     </div>
     <div class="collection-imge-holder">
-      <img src="assets/images/boots5.jpg" class="collection-productimage">
+      <img src="assets/images/jacket-cropped.jpg" class="collection-productimage">
     </div>
     <div class="collection-mainpage-product-text">
       <div class="collection-text-descretailer">
@@ -69,22 +71,13 @@
         <strong class="bold-text">Stella McCartney</strong>
         <br>Gathered Cocoon Trousers</div>
     </div>
-  </div>
+  </div> -->
   <div class="main-section-padding w-container"></div>
 </div>
-<div class="builder-section">
+<div class="builder-section" *ngIf="selectedProduct.length">
   <div class="builder-images-container w-container">
-    <div class="builder-image-holder-4-slot">
-      <img src="assets/images/12498319_11694970_255.jpg" class="builder-img-4-slot">
-    </div>
-    <div class="builder-image-holder-4-slot">
-      <img src="assets/images/12498319_11694970_255.jpg" class="builder-img-4-slot">
-    </div>
-    <div class="builder-image-holder-4-slot">
-      <img src="assets/images/bag-last2-listing3.jpg" class="builder-img-4-slot">
-    </div>
-    <div class="builder-image-holder-4-slot">
-      <img src="assets/images/boot3.jpg" class="builder-img-4-slot">
+    <div class="builder-image-holder-4-slot" *ngFor="let item of selectedProduct">
+      <img src="{{item.ImageThumbnaiURL}}" class="builder-img-4-slot" (click)="removeProduct(item)">
     </div>
   </div>
   <div class="footer-btn-container w-container"></div>

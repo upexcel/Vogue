@@ -5,14 +5,14 @@
             <div class="newsfeed-title">
                 <h5>{{item.title}}</h5>
             </div>
-            <div class="newsfeed-profile-container p-2" routerLink="/collection">
+            <div class="newsfeed-profile-container p-2" routerLink="/collection/{{item.id}}">
                 <img src="{{item.userData?.Profile_photo_url}}" class="avatar">
                 <div class="profile-details">
                     <b>{{item.userData?.Name}}</b>
                     <br>{{item.userData?.Description}}
                     <br>{{item.updatedAt | date: 'fullDate'}}</div>
             </div>
-            <div class="newsfeed-image-container" routerLink="/collection">
+            <div class="newsfeed-image-container" routerLink="/collection/{{item.id}}">
                 <img src="{{item.inspirationalPhotoURL}}" class="mx-auto d-block">
             </div>
         </div>
