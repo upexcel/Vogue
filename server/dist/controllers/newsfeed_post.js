@@ -46,13 +46,33 @@ var newsfeed_postController = exports.newsfeed_postController = function (_BaseA
                 return _this.handleErrorResponse(res, err);
             });
         }, _this.getNewsfeedPost = function (req, res, next) {
+            var finalData = [];
             _db2.default.newsfeed_post.count({}).then(function (count) {
                 _db2.default.newsfeed_post.findAll({ limit: parseInt(req.params.limit), offset: parseInt(req.params.limit) * parseInt(req.params.page - 1) }).then(function (data) {
-                    res.json({ status: 1, data: data, totalCount: count });
+                    data = JSON.parse(JSON.stringify(data));
+                    getUserData(data, function (resp) {
+                        res.json({ status: 1, data: resp, totalCount: count });
+                    });
                 }, function (err) {
                     return _this.handleErrorResponse(res, err);
                 });
             });
+            var getUserData = function getUserData(data, callback) {
+                if (data.length) {
+                    var newsFeed = data.splice(0, 1)[0];
+                    _db2.default.users.findOne({ where: { id: newsFeed.userID } }).then(function (user) {
+                        newsFeed.userData = user;
+                        finalData.push(newsFeed);
+                        if (data.length) {
+                            getUserData(data, callback);
+                        } else {
+                            callback(finalData);
+                        }
+                    });
+                } else {
+                    callback(finalData);
+                }
+            };
         }, _this.updateNewsfeedPost = function (req, res, next) {
             _db2.default.newsfeed_post.update(req.body, { where: { id: req.body.id } }).then(function (response) {
                 res.json({ status: 1, data: response });
@@ -73,7 +93,14 @@ var newsfeed_postController = exports.newsfeed_postController = function (_BaseA
                 _db2.default.products.findAll({ where: { ProductID: products } }).then(function (products) {
                     response = JSON.parse(JSON.stringify(response));
                     response.products = products;
-                    res.json({ status: 1, data: response });
+                    if (response.userID) {
+                        _db2.default.users.findOne({ where: { id: response.userID } }).then(function (userData) {
+                            response.userData = userData;
+                            res.json({ status: 1, data: response });
+                        });
+                    } else {
+                        res.json({ status: 1, data: response });
+                    }
                 });
             }, function (err) {
                 return _this.handleErrorResponse(res, err);
