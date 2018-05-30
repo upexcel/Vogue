@@ -12,4 +12,8 @@ export class ApiService {
     getNewsfeedPost(page, limit) {
         return this.http.get(`${environment['apiBaseUrl']}/newsfeed_post/getNewsfeedPost/${limit}/${page}`)
     }
+
+    getProduct(id) {
+        return this.http.get(`${environment['apiBaseUrl']}/newsfeed_post/NewsfeedPostwithProducts/${id}`)
+    }
 }

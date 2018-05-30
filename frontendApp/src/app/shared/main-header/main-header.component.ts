@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-header',
@@ -7,8 +9,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MainHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router, public location: Location) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
+  goBack() {
+    this.location.back();
+  }
 }

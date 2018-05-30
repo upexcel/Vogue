@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoaderComponent } from './loader/loader.component';
 import { MainHeaderComponent } from './main-header/main-header.component';
 import { ApiService } from './api-service/api-service';
+import { LocalStorageService } from './commom/local-storage.service';
 @NgModule({
   imports: [
     CommonModule
@@ -17,7 +18,8 @@ import { ApiService } from './api-service/api-service';
     MainHeaderComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    LocalStorageService
   ]
 })
 export class SharedModule { }
