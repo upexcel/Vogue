@@ -8,7 +8,7 @@ import { LocalStorageService } from '../shared/commom/local-storage.service';
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
-  styleUrls: ['./collection.component.css']
+  styleUrls: ['./collection.component.scss']
 })
 export class CollectionComponent implements OnInit, OnDestroy {
   productData: any;
@@ -18,10 +18,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProduct(this.activatedRoute.snapshot.paramMap.get('id'))
 
-    if(this.localStorageService.get('selectedProduct')) {
+    if (this.localStorageService.get('selectedProduct')) {
       this.selectedProduct = this.localStorageService.get('selectedProduct');
       console.log(this.selectedProduct);
-      
+
     }
   }
 
@@ -34,14 +34,14 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   addProduct(item) {
-    if(_.findIndex(this.selectedProduct,item) == -1) {
-      if(this.selectedProduct.length<4) {
+    if (_.findIndex(this.selectedProduct, item) === -1) {
+      if (this.selectedProduct.length < 4) {
         this.selectedProduct.push(item);
       } else {
-      alert("Maximum Number of Product Added")        
+        alert('Maximum Number of Product Added')
       }
     } else {
-      alert("Already Added")
+      alert('Already Added')
     }
   }
 
@@ -51,7 +51,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.localStorageService.set('selectedProduct',this.selectedProduct)
+    this.localStorageService.set('selectedProduct', this.selectedProduct)
   }
 
 }
