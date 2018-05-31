@@ -13,7 +13,11 @@
                     <br>{{item.updatedAt | date: 'fullDate'}}</div>
             </div>
             <div class="newsfeed-image-container" routerLink="/collection/{{item.id}}">
-                <img *ngIf="!item.isImageLoaded" style="width: 100%" src="assets/images/loading.gif" />
+                <div *ngIf="!item.isImageLoaded" id="wave">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
                 <img [hidden]="item.isImageLoaded" src="{{item.inspirationalPhotoURL}}" (load)="item.isImageLoaded = true" class="mx-auto d-block">
             </div>
         </div>
