@@ -13,6 +13,7 @@ export class NewsfeedComponent implements OnInit {
   items = [];
   loading: boolean;
   scrollList: any;
+  totalCount: number;
   @ViewChild(VirtualScrollComponent)
   private virtualScroll: VirtualScrollComponent;
   constructor(
@@ -28,7 +29,8 @@ export class NewsfeedComponent implements OnInit {
   }
 
   onListChange(event: ChangeEvent) {
-    if (event.end !== this.items.length) { return };
+    console.log(event, this.items.length)
+    if (event.end !== this.items.length || event.end === this.totalCount) { return };
     this.loading = true;
     ++this.page;
     this.getNewsFeeds(this.page, this.limit).then(chunk => {
@@ -40,7 +42,7 @@ export class NewsfeedComponent implements OnInit {
   getNewsFeeds(page, limit) {
     return new Promise((resolve, reject) => {
       this._apiService.getNewsfeedPost(page, limit).subscribe((res) => {
-        console.log(res['data'][0])
+        this.totalCount = res['totalCount'];
         // this.items = res['data']
         resolve(res['data']);
       }, (err) => {
