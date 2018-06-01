@@ -11,6 +11,12 @@ export class UserController extends BaseAPIController {
         // }, (err) => this.handleErrorResponse(res, err))
     }
 
+    getAllusers = (req, res, next) => {
+        db.users.findAll({}).then((data) => {
+            res.json({ status: 1, data: data })
+        }, (err) => this.handleErrorResponse(res, err))
+    }
+
     updateUser = (req, res, next) => {
         db.users.update(req.body, { where: { id: req.body.id } }).then((response) => {
             res.json({ status: 1, data: response })
@@ -23,6 +29,15 @@ export class UserController extends BaseAPIController {
         }, (err) => this.handleErrorResponse(res, err))
     }
 
+    getUserById = (req, res, next) => {
+        db.users.findOne({ where: { id: req.params.id } }).then((data) => {
+            if (data) {
+                res.json({ status: 1, data: data })
+            } else {
+                res.status(400).json({ error: 1, message: "user not exist" })
+            }
+        }, (err) => this.handleErrorResponse(res, err))
+    }
 }
 
 const controller = new UserController();
