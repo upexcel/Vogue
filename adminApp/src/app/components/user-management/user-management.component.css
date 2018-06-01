@@ -1,0 +1,79 @@
+.create-post {
+  font-size: 1.2vw;
+  color: #fff;
+}
+
+.block {
+  margin: 0rem 3rem;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.4);
+  padding: 2rem 0;
+}
+
+.heading {
+  font-size: 2.6vw;
+  color: #000;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  text-align: center;
+  padding: .8rem;
+  font-size: .8vw;
+}
+
+label {
+  color: #000;
+}
+
+.text-center {
+  text-align: center;
+  color: #000;
+}
+
+.inline_block {
+  display: inline-block;
+}
+
+.save-button {
+  padding: 1rem;
+  background: rgba(128, 128, 128, 0.4);
+  border: none;
+  font-size: .8vw;
+}
+
+.spinner {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+
+.table {
+  font-size: 1vw;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  background: #dee2e6;
+  border: none !important
+}
+
+.csvTable th {
+  background: #fff;
+}
+
+.csvTable tr:nth-child(even) {
+  background-color: #fff;
+}
+
+.csvTable tr td {
+  vertical-align: middle;
+  max-width: 0;  
+}
+
+.csvTable tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+

@@ -13,7 +13,8 @@ export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
   allPost: any;
   spinner: boolean;
-
+  page = 1;
+  limit = 100000;
   constructor(public formBuilder: FormBuilder, public _http: HttpClient, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -53,7 +54,7 @@ export class CreatePostComponent implements OnInit {
 
   fetchPost() {
     this.spinner = true;
-    this._http.get(`${environment['apiHost']}newsfeed_post/getNewsfeedPost`).subscribe((res) => {
+    this._http.get(`${environment['apiHost']}newsfeed_post/getNewsfeedPost/${this.limit}/${this.page}`).subscribe((res) => {
       this.spinner = false;
       this.allPost = res['data'];
     }, (err) => {

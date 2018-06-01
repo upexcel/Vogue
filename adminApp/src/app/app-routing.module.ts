@@ -6,7 +6,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { Mp4UploadComponent } from './components/mp4-upload/mp4-upload.component';
 import { BrowseContentComponent } from './components/browse-content/browse-content.component';
 import { ProductPhotoManagementComponent } from './components/product-photo-management/product-photo-management.component';
-
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 const routes: Routes = [
   {
@@ -27,6 +27,10 @@ const routes: Routes = [
     component: ProductPhotoManagementComponent
   },
   {
+    path: 'user-management',
+    component: UserManagementComponent
+  },
+  {
     path: 'create-post',
     component: CreatePostComponent
   },
@@ -44,7 +48,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes,
-      {useHash: true},
+      { useHash: true },
     )
   ],
   exports: [RouterModule]

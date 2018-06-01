@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatSelectModule, MatSnackBarModule, MatIconModule, MatButtonModule} from '@angular/material';
+import { MatSelectModule, MatSnackBarModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { ProductPhotoManagementComponent } from './components/product-photo-management/product-photo-management.component';
 import { BrowseContentComponent } from './components/browse-content/browse-content.component';
-
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { BrowseContentComponent } from './components/browse-content/browse-conte
     HeaderComponent,
     BrowseContentComponent,
     ProductPhotoManagementComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

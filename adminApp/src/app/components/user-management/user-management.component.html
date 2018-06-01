@@ -1,0 +1,85 @@
+<div *ngIf="spinner" class="spinner">
+</div>
+<div class="create-post">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+    <div class="block">
+      <div class="row">
+        <div class="col-12 heading">
+          User Management
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <label for="user">NAME</label>
+          <div class="form-group">
+            <input type="text" name="userId" id="user" formControlName="name">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <label for="photo">Profile photo URL</label>
+          <div class="form-group">
+            <input type="text" name="photoUrl" id="photo" formControlName="profilePhotoUrl">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <label for="photo">Details</label>
+          <div class="form-group">
+            <input type="text" name="photoUrl" id="photo" formControlName="details">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <button class="btn btn-default">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="allPost && allPost.length">
+  <div class="row">
+    <div class="col-12">
+      <table class="table csvTable border m-0">
+        <thead>
+          <tr>
+            <th>User Id</th>
+            <th>Title</th>
+            <th>Inspirational Photo URL</th>
+            <th>ProductId 1</th>
+            <th>ProductId 2</th>
+            <th>ProductId 3</th>
+            <th>ProductId 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of allPost">
+            <td>{{data.userID == null ? 'Not Defined' : data.userID}} </td>
+            <td>{{data.title == null ? 'Not Defined' : data.title}}</td>
+            <td>{{data.inspirationalPhotoURL == null ? 'Not Defined' : data.inspirationalPhotoURL}}</td>
+            <td>{{data.product1ID == null ? 'Not Defined' : data.product1ID}}</td>
+            <td>{{data.product2ID == null ? 'Not Defined' : data.product2ID}}</td>
+            <td>{{data.product3ID == null ? 'Not Defined' : data.product3ID}}</td>
+            <td>{{data.product4ID == null ? 'Not Defined' : data.product4ID}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
