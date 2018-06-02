@@ -21,6 +21,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ProductPhotoManagementComponent } from './components/product-photo-management/product-photo-management.component';
 import { BrowseContentComponent } from './components/browse-content/browse-content.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
+import { CommonService } from './services/common.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserManagementComponent } from './components/user-management/user-manag
   providers: [
     LocalStorageService,
     IntermediateStorageService,
-    HttpService
+    HttpService,
+    CommonService
   ],
   bootstrap: [AppComponent]
 })

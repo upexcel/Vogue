@@ -49,7 +49,6 @@ label {
   right: 2rem;
 }
 
-
 .table {
   font-size: 1vw;
 }
@@ -70,10 +69,13 @@ label {
 
 .csvTable tr td {
   vertical-align: middle;
-  max-width: 0;  
+  max-width: 0;
 }
 
 .csvTable tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
+.pointer {
+  cursor: pointer;
+}
