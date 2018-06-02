@@ -1,0 +1,83 @@
+<div *ngIf="spinner" class="spinner">
+</div>
+<div class="create-post">
+  <form [formGroup]="userForm" (ngSubmit)="createUser(userForm.value)">
+    <div class="block">
+      <div class="row">
+        <div class="col-12 heading">
+          User Management
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <label for="user">Name</label>
+          <div class="form-group">
+            <input type="text" id="name" formControlName="name" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <label for="photo">Profile photo URL</label>
+          <div class="form-group">
+            <input type="text" id="photo" formControlName="profilePhotoUrl" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <label for="details">Description</label>
+          <div class="form-group">
+            <input type="text" id="details" formControlName="description" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="row">
+        <div class="col-2">
+          <button class="btn btn-default" [disabled]="userForm.invalid || loading">Add User</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="card my-5 p-1 mx-4 shadow" *ngIf="userTable && userTable.length">
+  <div class="row">
+    <div class="col-12">
+      <table class="table userTable border m-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Profile Photo URL</th>
+            <th>Description</th>
+            <!-- <th>Edit</th> -->
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of userTable">
+            <td>{{data.Name == null ? 'Not Defined' : data.Name}}</td>
+            <td>{{data.Profile_photo_url == null ? 'Not Defined' : data.Profile_photo_url}}</td>
+            <td>{{data.Description == null ? 'Not Defined' : data.Description}}</td>
+            <!-- <td (click)="updateUser(data)" class="pl-4"><i class="fas fa-edit pointer"></i></td> -->
+            <td (click)="deleteUser(data)" class="pl-4">
+              <i class="fas fa-trash pointer"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
