@@ -16,9 +16,13 @@ exports.default = function (app) {
 
     app.route("/user/createUser").post(_user2.default.createUser);
 
-    app.route("/user/updateUser").post(_user2.default.updateUser);
+    app.route("/user/getAllusers").get(_user2.default.getAllusers);
 
-    app.route("/user/deleteUser/:id").post(_user2.default.deleteUser);
+    app.route("/user/updateUser").put(_user2.default.updateUser);
+
+    app.route("/user/deleteUser/:id").delete(_user2.default.deleteUser);
+
+    app.route("/user/getUserById/:id").get(_user2.default.getUserById);
 
     return app;
 };
