@@ -46,13 +46,17 @@ export class UserController extends BaseAPIController {
 
                         _.forEach(result, (val, key) => {
                             delete val.ImageFullsizeURL;
-                            db.products.findOne({ where: { ProductID: val.ProductID } }).then((product) => {
-                                if (product) {
-                                    db.products.update(val, { where: { ProductID: val.ProductID } }).then((data) => {})
-                                } else {
-                                    db.products.create(val).then((data) => {})
-                                }
-                            })
+                            if (val.ProductID) {
+                                db.products.findOne({ where: { ProductID: val.ProductID } }).then((product) => {
+                                    if (product) {
+                                        db.products.update(val, { where: { ProductID: val.ProductID } }).then((data) => {})
+                                    } else {
+                                        db.products.create(val).then((data) => {})
+                                    }
+                                })
+                            } else {
+                                console.log("productID not exist")
+                            }
                             if (key == result.length - 1) {
                                 res.json({ status: 1, message: "success" })
                             }
