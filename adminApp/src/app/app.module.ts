@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatSelectModule, MatSnackBarModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatSelectModule, MatSnackBarModule, MatIconModule, MatButtonModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload';
 import { HttpClientModule } from '@angular/common/http';
@@ -47,7 +47,8 @@ import { CommonService } from './services/common.service';
     HttpClientModule,
     MatSnackBarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ],
   providers: [
     LocalStorageService,

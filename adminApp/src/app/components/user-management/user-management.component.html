@@ -13,7 +13,12 @@
         <div class="col-2">
           <label for="user">Name</label>
           <div class="form-group">
-            <input type="text" id="name" formControlName="name" autocomplete="off">
+            <input type="text" id="name" formControlName="name" autocomplete="off" required>
+            <div *ngIf="userForm.controls.name.invalid && (userForm.controls.name.dirty || userForm.controls.name.touched)" class="alert alert-danger">
+              <div *ngIf="userForm.controls.name.errors.required">
+                Name is required.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -24,7 +29,16 @@
         <div class="col-2">
           <label for="photo">Profile photo URL</label>
           <div class="form-group">
-            <input type="text" id="photo" formControlName="profilePhotoUrl" autocomplete="off">
+            <input type="text" id="photo" formControlName="profilePhotoUrl" autocomplete="off" placeholder="profile url with http, https, www"
+              required>
+            <div *ngIf="userForm.controls.profilePhotoUrl.invalid && (userForm.controls.profilePhotoUrl.dirty || userForm.controls.profilePhotoUrl.touched)" class="alert alert-danger">
+              <div *ngIf="userForm.controls.profilePhotoUrl.errors.required">
+                URL is required.
+              </div>
+              <div *ngIf="userForm.controls.profilePhotoUrl.errors.pattern">
+                URl must be start with http(s).
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -32,10 +46,15 @@
 
     <div class="block">
       <div class="row">
-        <div class="col-2">
+        <div class="col-12">
           <label for="details">Description</label>
           <div class="form-group">
-            <input type="text" id="details" formControlName="description" autocomplete="off">
+            <textarea type="text" id="details" formControlName="description" autocomplete="off" required></textarea>
+            <div *ngIf="userForm.controls.description.invalid && (userForm.controls.description.dirty || userForm.controls.description.touched)" class="alert alert-danger">
+              <div *ngIf="userForm.controls.description.errors.required">
+                Description is required.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -44,7 +63,7 @@
     <div class="block">
       <div class="row">
         <div class="col-2">
-          <button class="btn btn-default" [disabled]="userForm.invalid || loading">Add User</button>
+          <button class="btn btn-default" [disabled]="userForm.invalid || loading">{{updateUserData? 'Update': 'Add'}} User</button>
         </div>
       </div>
     </div>
@@ -60,7 +79,7 @@
             <th>Name</th>
             <th>Profile Photo URL</th>
             <th>Description</th>
-            <!-- <th>Edit</th> -->
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -69,7 +88,9 @@
             <td>{{data.Name == null ? 'Not Defined' : data.Name}}</td>
             <td>{{data.Profile_photo_url == null ? 'Not Defined' : data.Profile_photo_url}}</td>
             <td>{{data.Description == null ? 'Not Defined' : data.Description}}</td>
-            <!-- <td (click)="updateUser(data)" class="pl-4"><i class="fas fa-edit pointer"></i></td> -->
+            <td (click)="updateUser(data)" class="pl-4">
+              <i class="fas fa-edit pointer"></i>
+            </td>
             <td (click)="deleteUser(data)" class="pl-4">
               <i class="fas fa-trash pointer"></i>
             </td>

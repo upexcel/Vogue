@@ -47,6 +47,12 @@ var UserController = exports.UserController = function (_BaseAPIController) {
                 return _this.handleErrorResponse(res, err);
             });
             // }, (err) => this.handleErrorResponse(res, err))
+        }, _this.getAllusers = function (req, res, next) {
+            _db2.default.users.findAll({}).then(function (data) {
+                res.json({ status: 1, data: data });
+            }, function (err) {
+                return _this.handleErrorResponse(res, err);
+            });
         }, _this.updateUser = function (req, res, next) {
             _db2.default.users.update(req.body, { where: { id: req.body.id } }).then(function (response) {
                 res.json({ status: 1, data: response });
@@ -56,6 +62,16 @@ var UserController = exports.UserController = function (_BaseAPIController) {
         }, _this.deleteUser = function (req, res, next) {
             _db2.default.users.destroy({ where: { id: req.params.id } }).then(function (response) {
                 res.json({ status: 1, data: response });
+            }, function (err) {
+                return _this.handleErrorResponse(res, err);
+            });
+        }, _this.getUserById = function (req, res, next) {
+            _db2.default.users.findOne({ where: { id: req.params.id } }).then(function (data) {
+                if (data) {
+                    res.json({ status: 1, data: data });
+                } else {
+                    res.status(400).json({ error: 1, message: "user not exist" });
+                }
             }, function (err) {
                 return _this.handleErrorResponse(res, err);
             });

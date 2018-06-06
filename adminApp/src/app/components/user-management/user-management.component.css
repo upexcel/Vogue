@@ -79,3 +79,9 @@ label {
 .pointer {
   cursor: pointer;
 }
+textarea {
+  width: 100%;
+}
+.alert {
+  font-size: 10px; 
+}
