@@ -48,8 +48,7 @@ export class UserController extends BaseAPIController {
                             if (val.ProductID) {
                                 db.products.findOne({ where: { ProductID: val.ProductID } }).then((product) => {
                                     if (product) {
-                                        db.products.update(val, { where: { ProductID: val.ProductID } }).then((data) => {
-                                        })
+                                        db.products.update(val, { where: { ProductID: val.ProductID } }).then((data) => {})
                                     } else {
                                         db.products.create(val).then((data) => {})
                                     }
