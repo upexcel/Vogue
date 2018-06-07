@@ -20,17 +20,16 @@ export class UserController extends BaseAPIController {
                         var csv = data.toString('utf8')
                         var lines = csv.split("\n");
                         var result = [];
-                        var headers = lines[0].split(",");
+                        var headers = lines[0].split("|");
                         for (var i = 1; i < lines.length; i++) {
                             var obj = {};
-                            var currentline = lines[i].split(/,/);
+                            var currentline = lines[i].split('|');
                             for (var j = 0; j < headers.length; j++) {
 
                                 obj[headers[j]] = currentline[j] ? currentline[j] : null;
                             }
                             result.push(obj);
                         }
-
                         db.products.findAll({}).then((resp) => {
                             var arrToDelete = []
                             _.map(resp, (val, key) => {
@@ -54,6 +53,7 @@ export class UserController extends BaseAPIController {
                                         db.products.create(val).then((data) => {})
                                     }
                                 })
+
                             } else {
                                 console.log("productID not exist")
                             }
