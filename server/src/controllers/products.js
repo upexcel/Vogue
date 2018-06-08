@@ -63,7 +63,6 @@ export class UserController extends BaseAPIController {
                     products[x].Subcategory = products[x].subcategories.Subcategory['1'];
                     jsonArray.push(products[x]);
                     if (x == Object.keys(products).length - 1) {
-
                         callback(jsonArray)
                     }
                 }
