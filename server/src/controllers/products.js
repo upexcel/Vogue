@@ -7,7 +7,6 @@ import fs from "fs";
 import csvjson from "csvjson";
 import path from "path";
 var to_json = require('xmljson').to_json;
-var x2j = require('xml2js');
 
 export class UserController extends BaseAPIController {
 
