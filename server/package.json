@@ -32,7 +32,8 @@
     "rmdir": "^1.2.0",
     "sequelize": "^4.37.6",
     "unzipper": "^0.8.13",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "xmljson": "^0.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
