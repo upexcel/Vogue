@@ -6,21 +6,21 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group">
-            <label for="csv">Upload CSV:</label>
-            <input type="file" class="form-control" ng2FileSelect #csv [uploader]="csvUploader" [accept]="['text/csv']" (change)="checkType($event)"
+            <label for="xml">Upload Xml:</label>
+            <input type="file" class="form-control" ng2FileSelect #xml [uploader]="xmlUploader" [accept]="['text/xml']" (change)="checkType($event)"
             />
           </div>
         </div>
       </div>
       <div *ngIf=typeError class="error">
         Please Upload
-        <strong>CSV File</strong> Only.
+        <strong>XML File</strong> Only.
       </div>
-      <div *ngIf=badCsv class="error">
-        Csv Field
+      <div *ngIf=badXml class="error">
+        XML Field
         <strong>ProductID & ProductName</strong> must not be Empty.
       </div>
-      <div class="row" *ngIf="csvUploader.queue.length">
+      <div class="row" *ngIf="xmlUploader.queue.length">
         <div class="col-12">
           <table class="table">
             <thead>
@@ -32,7 +32,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of csvUploader.queue">
+              <tr *ngFor="let item of xmlUploader.queue">
                 <td title="{{ item?.file?.name }}" class="overflow">
                   <strong>{{ item?.file?.name }}</strong>
                 </td>

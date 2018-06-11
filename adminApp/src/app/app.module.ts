@@ -22,7 +22,7 @@ import { ProductPhotoManagementComponent } from './components/product-photo-mana
 import { BrowseContentComponent } from './components/browse-content/browse-content.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { CommonService } from './services/common.service';
-
+import { XmlToJsonService } from './xml-to-json.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +54,8 @@ import { CommonService } from './services/common.service';
     LocalStorageService,
     IntermediateStorageService,
     HttpService,
-    CommonService
+    CommonService,
+    XmlToJsonService
   ],
   bootstrap: [AppComponent]
 })

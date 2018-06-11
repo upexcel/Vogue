@@ -5,9 +5,8 @@ import { environment } from '../../../environments/environment';
 import { HttpService } from '../../services/http.service';
 import { IntermediateStorageService } from '../../services/intermediateStorage.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-
+import { XmlToJsonService } from './../../xml-to-json.service';
 import * as _ from 'lodash';
-
 
 @Component({
   selector: 'app-product-management',
@@ -16,36 +15,36 @@ import * as _ from 'lodash';
 })
 
 export class ProductManagementComponent implements OnInit, OnDestroy {
-  @ViewChild('csv')
-  resetCsv: any;
+  @ViewChild('xml')
+  resetXml: any;
   typeError: boolean;
-  csvUploader: FileUploader;
+  xmlUploader: FileUploader;
   csvTable: any;
-  csvJson: any;
-  badCsv: boolean;
+  badXml: boolean;
   spinner: boolean;
   productSearchText: string;
   errorMessage: string;
   constructor(
+    public _xml2JsonConverter: XmlToJsonService,
     public httpService: HttpService,
     public intermediateStorageService: IntermediateStorageService,
     public localStorageService: LocalStorageService
   ) {
-    this.csvUploader = new FileUploader({
+    this.xmlUploader = new FileUploader({
       url: `${environment['apiHost']}products/createProducts`,
       itemAlias: 'file',
-      autoUpload: !(this.typeError || this.badCsv),
+      autoUpload: !(this.typeError || this.badXml),
     });
 
     if (this.intermediateStorageService.storeCsvData) {
-      this.csvUploader = this.intermediateStorageService.getCsvData();
+      this.xmlUploader = this.intermediateStorageService.getCsvData();
     }
 
-    this.csvUploader.onBeforeUploadItem = (item) => {
+    this.xmlUploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     };
 
-    this.csvUploader.response.subscribe(res => {
+    this.xmlUploader.response.subscribe(res => {
       // if (res) {
       //   this.getProducts();
       // }
@@ -58,55 +57,49 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     //   this.csvTable = this.localStorageService.getItem('tableData');
     // }
     // this.getProducts();
+    /*	This work is licensed under Creative Commons GNU LGPL License.
+*/
+
   }
 
 
   checkType(event) {
+
     this.typeError = false;
-    this.badCsv = false;
-    if (this.csvUploader.queue.length > 1) {
-      this.csvUploader.queue[0].cancel();
-      this.csvUploader.queue.shift();
+    this.badXml = false;
+    if (this.xmlUploader.queue.length > 1) {
+      this.xmlUploader.queue[0].cancel();
+      this.xmlUploader.queue.shift();
     }
     if (event.target.files[0]) {
-      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() === 'csv') {
+      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() === 'xml') {
         this.typeError = false;
       } else {
         this.typeError = true;
-        this.csvUploader.clearQueue();
+        this.xmlUploader.clearQueue();
       }
       const reader: FileReader = new FileReader();
       reader.readAsText(event.target.files[0]);
       reader.onload = (e) => {
-        const csv: string = reader.result;
-        this.csvToJson(csv);
+        this.xmlToJson(reader.result);
       };
     }
   }
 
-  csvToJson(csv) {
-    const lines = csv.split('\n');
-    this.csvJson = [];
-    const headers = lines[0].split(',');
-    for (let i = 1; i < lines.length; i++) {
-      const obj = {};
-      const currentline = lines[i].split(',');
-      for (let j = 0; j < headers.length; j++) {
-        obj[headers[j]] = currentline[j];
-      }
-      this.csvJson.push(obj);
-    }
-    _.forEach(this.csvJson, (value, key) => {
-      _.forEach(value, (data, field) => {
-        if (field === 'ProductID' || field === 'ProductName') {
-          if (data === '') {
-            this.badCsv = true;
-            this.csvUploader.clearQueue();
+
+  xmlToJson(xml) {
+    let xml2json = JSON.parse(this._xml2JsonConverter.xmlToJsonService(xml, '  '));
+    _.forEach(xml2json, (value, key) => {
+      _.forEach(value, (val, fileds) => {
+        _.forEach(val, (data, field) => {
+          if (!(data.ProductID && data.ProductID.length && data.ProductName && data.ProductName.length)) {
+            this.badXml = true;
+            this.xmlUploader.clearQueue();
             return false;
           }
-        }
-      });
-      if (this.badCsv) {
+        });
+      })
+      if (this.badXml) {
         return false;
       }
     });
@@ -133,7 +126,6 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     this.csvTable = [];
     this.httpService.searchProduct(productId).then((res) => {
       this.spinner = false;
-      console.log(res);
       if (res && res['data'].length === 0) {
         this.errorMessage = 'Product Not Found !';
       }
@@ -145,11 +137,11 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   }
 
   reset() {
-    this.resetCsv.nativeElement.value = '';
+    this.resetXml.nativeElement.value = '';
   }
 
   ngOnDestroy() {
-    this.intermediateStorageService.setCsvData(this.csvUploader);
+    this.intermediateStorageService.setCsvData(this.xmlUploader);
   }
 
 }
