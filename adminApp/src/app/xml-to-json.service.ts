@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+declare let window: any;
 @Injectable()
 export class XmlToJsonService {
   parseXml: any

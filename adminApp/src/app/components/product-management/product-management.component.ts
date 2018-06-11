@@ -89,17 +89,16 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
 
   xmlToJson(xml) {
     let xml2json = JSON.parse(this._xml2JsonConverter.xmlToJsonService(xml, '  '));
-    console.log(xml2json)
     _.forEach(xml2json, (value, key) => {
-      _.forEach(value, (data, field) => {
-        if (field === 'ProductID' || field === 'ProductName') {
-          if (data === '') {
+      _.forEach(value, (val, fileds) => {
+        _.forEach(val, (data, field) => {
+          if (!(data.ProductID && data.ProductID.length && data.ProductName && data.ProductName.length)) {
             this.badXml = true;
             this.xmlUploader.clearQueue();
             return false;
           }
-        }
-      });
+        });
+      })
       if (this.badXml) {
         return false;
       }
@@ -127,7 +126,6 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
     this.csvTable = [];
     this.httpService.searchProduct(productId).then((res) => {
       this.spinner = false;
-      console.log(res);
       if (res && res['data'].length === 0) {
         this.errorMessage = 'Product Not Found !';
       }
