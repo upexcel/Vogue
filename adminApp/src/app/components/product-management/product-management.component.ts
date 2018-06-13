@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { HttpService } from '../../services/http.service';
 import { IntermediateStorageService } from '../../services/intermediateStorage.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { XmlToJsonService } from './../../xml-to-json.service';
+import { TsvToJsonService } from '../../services/tsv-to-json.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -15,36 +15,36 @@ import * as _ from 'lodash';
 })
 
 export class ProductManagementComponent implements OnInit, OnDestroy {
-  @ViewChild('xml')
-  resetXml: any;
+  @ViewChild('tsv')
+  resetTSV: any;
   typeError: boolean;
-  xmlUploader: FileUploader;
+  tsvUploader: FileUploader;
   csvTable: any;
-  badXml: boolean;
+  badTSV: boolean;
   spinner: boolean;
   productSearchText: string;
   errorMessage: string;
   constructor(
-    public _xml2JsonConverter: XmlToJsonService,
+    public _tsv2JsonConverter: TsvToJsonService,
     public httpService: HttpService,
     public intermediateStorageService: IntermediateStorageService,
     public localStorageService: LocalStorageService
   ) {
-    this.xmlUploader = new FileUploader({
+    this.tsvUploader = new FileUploader({
       url: `${environment['apiHost']}products/createProducts`,
       itemAlias: 'file',
-      autoUpload: !(this.typeError || this.badXml),
+      autoUpload: !(this.typeError || this.badTSV),
     });
 
     if (this.intermediateStorageService.storeCsvData) {
-      this.xmlUploader = this.intermediateStorageService.getCsvData();
+      this.tsvUploader = this.intermediateStorageService.getCsvData();
     }
 
-    this.xmlUploader.onBeforeUploadItem = (item) => {
+    this.tsvUploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     };
 
-    this.xmlUploader.response.subscribe(res => {
+    this.tsvUploader.response.subscribe(res => {
       // if (res) {
       //   this.getProducts();
       // }
@@ -66,43 +66,39 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   checkType(event) {
 
     this.typeError = false;
-    this.badXml = false;
-    if (this.xmlUploader.queue.length > 1) {
-      this.xmlUploader.queue[0].cancel();
-      this.xmlUploader.queue.shift();
+    this.badTSV = false;
+    if (this.tsvUploader.queue.length > 1) {
+      this.tsvUploader.queue[0].cancel();
+      this.tsvUploader.queue.shift();
     }
     if (event.target.files[0]) {
-      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() === 'xml') {
+      if (event.target.files[0]['name'].substr(event.target.files[0]['name'].lastIndexOf('.') + 1).toLowerCase() === 'tsv') {
         this.typeError = false;
       } else {
         this.typeError = true;
-        this.xmlUploader.clearQueue();
+        this.tsvUploader.clearQueue();
       }
       const reader: FileReader = new FileReader();
       reader.readAsText(event.target.files[0]);
       reader.onload = (e) => {
-        this.xmlToJson(reader.result);
+        this.tsvToJson(reader.result);
       };
     }
   }
 
 
-  xmlToJson(xml) {
-    let xml2json = JSON.parse(this._xml2JsonConverter.xmlToJsonService(xml, '  '));
-    _.forEach(xml2json, (value, key) => {
-      _.forEach(value, (val, fileds) => {
-        _.forEach(val, (data, field) => {
-          if (!(data.ProductID && data.ProductID.length && data.ProductName && data.ProductName.length)) {
-            this.badXml = true;
-            this.xmlUploader.clearQueue();
-            return false;
-          }
-        });
-      })
-      if (this.badXml) {
+  tsvToJson(tsv) {
+    let tsv2json = JSON.parse(this._tsv2JsonConverter.tsvJSON(tsv));
+    _.forEach(tsv2json, (data, key) => {
+      if (!(data.ProductID && data.ProductID.length && data.ProductName && data.ProductName.length)) {
+        this.badTSV = true;
+        this.tsvUploader.clearQueue();
         return false;
       }
-    });
+    })
+    if (this.badTSV) {
+      return false;
+    }
   }
 
   getProducts() {
@@ -137,11 +133,11 @@ export class ProductManagementComponent implements OnInit, OnDestroy {
   }
 
   reset() {
-    this.resetXml.nativeElement.value = '';
+    this.resetTSV.nativeElement.value = '';
   }
 
   ngOnDestroy() {
-    this.intermediateStorageService.setCsvData(this.xmlUploader);
+    this.intermediateStorageService.setCsvData(this.tsvUploader);
   }
 
 }
