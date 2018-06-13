@@ -4,9 +4,7 @@ import db from '../db.js';
 import _ from "lodash";
 import formidable from "formidable";
 import fs from "fs";
-import csvjson from "csvjson";
 import path from "path";
-var to_json = require('xmljson').to_json;
 
 export class UserController extends BaseAPIController {
 
@@ -15,37 +13,29 @@ export class UserController extends BaseAPIController {
         let form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             if (files.file) {
-                if (files.file['name'].substr(files.file['name'].lastIndexOf('.') + 1).toLowerCase() != 'xml') {
+                if (files.file['name'].substr(files.file['name'].lastIndexOf('.') + 1).toLowerCase() != 'tsv') {
                     res.status(400).json({ error: 1, message: "please upload csv file" })
                 } else {
                     db.products.findAll({}).then((resp) => {
                         fs.readFile(files.file.path, function(err, data) {
-                            let xml = data.toString('utf8')
-                            to_json(xml, function(error, data) {
-                                if (error) {
-                                    res.status(400).json({ error: 1, message: "something is wrong in your xml file", data: error })
-                                } else {
-                                    let products = data.Products.Product
-                                    let arr = [];
-                                    arrayOfJson(products, arr, function(jsonArray) {
-                                        let arrToDelete = []
-                                        _.map(resp, (val, key) => {
-                                            let findProduct = _.find(jsonArray, function(get) { return get.ProductID == val.ProductID; });
-                                            if (!findProduct) {
-                                                arrToDelete.push(val.ProductID)
-                                            }
-                                            if (key == resp.length - 1) {
-                                                db.products.destroy({ where: { ProductID: arrToDelete } }).then((data) => {
-                                                    console.log(data, "deleted")
-                                                })
-                                            }
+                            let tsv = data.toString('utf8')
+                            arrayOfJson(tsv, function(jsonArray) {
+                                let arrToDelete = []
+                                _.map(resp, (val, key) => {
+                                    let findProduct = _.find(jsonArray, function(get) { return get.ProductID == val.ProductID; });
+                                    if (!findProduct) {
+                                        arrToDelete.push(val.ProductID)
+                                    }
+                                    if (key == resp.length - 1) {
+                                        db.products.destroy({ where: { ProductID: arrToDelete } }).then((data) => {
+                                            console.log(data, "deleted")
                                         })
-                                        indertUpdateProducts(jsonArray, function(finalResponse) {
-                                            res.json({ status: 1, message: finalResponse })
-                                        })
-                                    })
-                                }
-                            });
+                                    }
+                                })
+                                indertUpdateProducts(jsonArray, function(finalResponse) {
+                                    res.json({ status: 1, message: finalResponse })
+                                })
+                            })
                         })
                     })
                 }
@@ -54,21 +44,19 @@ export class UserController extends BaseAPIController {
             }
         })
 
-        function arrayOfJson(products, jsonArray, callback) {
-            if (Object.keys(products).length) {
-                for (var x in products) {
-                    products[x].Colour1 = products[x].colors.Colour1;
-                    products[x].Colour2 = products[x].colors.Colour2;
-                    products[x].Colour3 = products[x].colors.Colour3;
-                    products[x].Subcategory = products[x].subcategories.Subcategory['1'];
-                    jsonArray.push(products[x]);
-                    if (x == Object.keys(products).length - 1) {
-                        callback(jsonArray)
-                    }
+        function arrayOfJson(tsv, callback) {
+            var lines = tsv.split("\n");
+            var result = [];
+            var headers = lines[0].split("\t");
+            for (var i = 1; i < lines.length; i++) {
+                var obj = {};
+                var currentline = lines[i].split("\t");
+                for (var j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = currentline[j];
                 }
-            } else {
-                callback(jsonArray)
+                result.push(obj);
             }
+            callback(result)
         }
 
         function indertUpdateProducts(data, callback) {
