@@ -8,7 +8,7 @@ export default function(sequelize, DataTypes) {
         Colour3: DataTypes.STRING,
         ProductName: DataTypes.STRING,
         Designer: DataTypes.STRING,
-        Description: DataTypes.STRING,
+        Description: DataTypes.STRING(4096),
         Retailer: DataTypes.STRING,
         Price: DataTypes.INTEGER,
         RetailerURL: DataTypes.STRING,

@@ -45,7 +45,7 @@ export class UserController extends BaseAPIController {
         })
 
         function arrayOfJson(tsv, callback) {
-            var lines = tsv.split("\n");
+            var lines = tsv.replace(/\r/g, "").split('\n');
             var result = [];
             var headers = lines[0].split("\t");
             for (var i = 1; i < lines.length; i++) {
@@ -58,7 +58,7 @@ export class UserController extends BaseAPIController {
             }
             callback(result)
         }
-
+ 
         function indertUpdateProducts(data, callback) {
             if (data.length) {
                 let val = data.splice(0, 1)[0];
