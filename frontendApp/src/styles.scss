@@ -232,3 +232,71 @@ div#wave {
         transform: translateY(-15px);
     }
 }
+
+a {
+    outline: none;
+}
+
+/* Novak */
+
+.novakbtn {
+    position: relative;
+    display: inline-block; // background: none;
+    text-decoration: none;
+}
+
+.novakbtn.novakbtn--click,
+.novakbtn:focus {
+    outline: none; // color: #3c8ddc;
+}
+
+.novakbtn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -35px 0 0 -35px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+
+.novakbtn--effect-novak::after {
+    background: rgba(111, 148, 182, 0.25);
+}
+
+.novakbtn--effect-novak.novakbtn--click::after {
+    -webkit-animation: anim-effect-novak 0.5s infinite;
+    animation: anim-effect-novak 0.5s infinite;
+}
+
+@-webkit-keyframes anim-effect-novak {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale3d(0.1, 0.1, 1);
+        transform: scale3d(0.1, 0.1, 1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale3d(8, 8, 1);
+        transform: scale3d(8, 8, 1);
+    }
+}
+
+@keyframes anim-effect-novak {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale3d(0.1, 0.1, 1);
+        transform: scale3d(0.1, 0.1, 1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale3d(8, 8, 1);
+        transform: scale3d(8, 8, 1);
+    }
+}
+/* Novak */

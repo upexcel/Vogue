@@ -1,26 +1,49 @@
 <app-main-header></app-main-header>
-<div class="main-section">
-    <virtual-scroll [items]="items" (update)="scrollList = $event" (change)="onListChange($event)">
-        <div class="newsfeeds" style="height: 450px; overflow: hidden;" *ngFor="let item of scrollList; let i = index">
-            <div class="newsfeed-title">
-                <h5>{{item.title}}</h5>
-            </div>
-            <div class="newsfeed-profile-container p-2" routerLink="/collection/{{item.id}}">
-                <img src="{{item.userData?.Profile_photo_url}}" class="avatar">
-                <div class="profile-details">
-                    <b>{{item.userData?.Name}}</b>
-                    <br>{{item.userData?.Description}}
-                    <br>{{item.updatedAt | date: 'fullDate'}}</div>
-            </div>
-            <div class="newsfeed-image-container" routerLink="/collection/{{item.id}}">
-                <div *ngIf="!item.isImageLoaded" id="wave">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-                <img [hidden]="item.isImageLoaded" src="{{item.inspirationalPhotoURL}}" (load)="item.isImageLoaded = true" class="mx-auto d-block">
-            </div>
+<div class="body">
+    <div class="shared_contentholder">
+        <div class="loader" *ngIf="!scrollList" >
+            <img src="assets/images/loading.svg" />
         </div>
-        <div *ngIf="loading" class="loader">Loading...</div>
-    </virtual-scroll>
+        <virtual-scroll [items]="items" (update)="scrollList = $event" (change)="onListChange($event)">
+            <div class="newsfeeds" style="height: 450px; overflow: hidden;" *ngFor="let item of scrollList; let i = index" appNovakClick>
+                <div class="feed_content_head w-container">
+                    <div class="feed_title-container">
+                        <a href="#" class="link w-inline-block">
+                            <h4 class="shared_title-txt-large">{{item.title}}</h4>
+                        </a>
+                    </div>
+                    <div class="shared_line-small"></div>
+                    <a href="#" class="link w-inline-block">
+                        <div class="shared_auth_contain">
+                            <div class="shared_auth-img">
+                                <img src="{{item.userData?.Profile_photo_url}}" srcset="assets/images/circle3-p-500.jpeg 500w, assets/images/circle3.jpg 600w"
+                                    sizes="(max-width: 479px) 100vw, 45px">
+                            </div>
+                            <div class="shared_auth_txt">
+                                <div class="shared_smalltxt">
+                                    <span class="shared_smalltxt-by">by</span> {{item.userData?.Name}}</div>
+                                <div class="shared_smalltxt">{{item.userData?.Description}}
+                                    <br>{{item.updatedAt | date: 'fullDate'}}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="feed_content_photo w-container" routerLink="/collection/{{item.id}}">
+                    <div class="feed_imgholder">
+                        <a class="link w-inline-block">
+                            <div *ngIf="!item.isImageLoaded" id="wave">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <div>
+                                <img [hidden]="item.isImageLoaded" src="{{item.inspirationalPhotoURL}}" (load)="item.isImageLoaded = true" class="mx-auto d-block">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="feed_divider-thin w-container"></div>
+            </div>
+        </virtual-scroll>
+    </div>
 </div>
