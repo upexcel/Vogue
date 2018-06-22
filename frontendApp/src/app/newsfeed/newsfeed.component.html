@@ -1,7 +1,7 @@
 <app-main-header></app-main-header>
 <div class="body">
     <div class="shared_contentholder">
-        <div class="loader" *ngIf="!scrollList" >
+        <div class="loader" *ngIf="!items.length" >
             <img src="assets/images/loading.svg" />
         </div>
         <virtual-scroll [items]="items" (update)="scrollList = $event" (change)="onListChange($event)">
