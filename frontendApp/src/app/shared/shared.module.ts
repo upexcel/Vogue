@@ -5,17 +5,20 @@ import { LoaderComponent } from './loader/loader.component';
 import { MainHeaderComponent } from './main-header/main-header.component';
 import { ApiService } from './api-service/api-service';
 import { LocalStorageService } from './commom/local-storage.service';
+import { NovakClickDirective } from './directives/novak-click-directive';
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
     LoaderComponent,
-    MainHeaderComponent
+    MainHeaderComponent,
+    NovakClickDirective
   ],
   exports: [
     LoaderComponent,
-    MainHeaderComponent
+    MainHeaderComponent,
+    NovakClickDirective
   ],
   providers: [
     ApiService,

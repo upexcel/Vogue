@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer } from '@angular/core';
 import { ApiService } from '../shared/api-service/api-service';
 import { VirtualScrollComponent, ChangeEvent } from 'angular2-virtual-scroll';
 
@@ -51,8 +51,4 @@ export class NewsfeedComponent implements OnInit {
       })
     })
   }
-
-
-
-
 }
