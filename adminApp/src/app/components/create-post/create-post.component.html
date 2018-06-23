@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="col-1">
-              <button class="save-button" type="submit" [disabled]="postForm.pristine || postForm.invalid || spinner">Save</button>
+              <button class="save-button" type="submit" [disabled]="postForm.pristine || postForm.invalid || spinner">{{updatePostData ? 'Update' : 'Save'}}</button>
             </div>
           </div>
         </div>
@@ -88,31 +88,38 @@
 <div class="card my-5 p-1 mx-4 shadow" *ngIf="allPost && allPost.length">
   <div class="row">
     <div class="col-12">
-        <table class="table csvTable border m-0">
-          <thead>
-            <tr>
-              <th>User Id</th>
-              <th>Title</th>
-              <th>Inspirational Photo URL</th>
-              <th>ProductId 1</th>
-              <th>ProductId 2</th>
-              <th>ProductId 3</th>
-              <th>ProductId 4</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of allPost">
-              <td>{{data.userID == null ? 'Not Defined' : data.userID}} </td>
-              <td>{{data.title == null ? 'Not Defined' : data.title}}</td>
-              <td>{{data.inspirationalPhotoURL == null ? 'Not Defined' : data.inspirationalPhotoURL}}</td>
-              <td>{{data.product1ID == null ? 'Not Defined' : data.product1ID}}</td>
-              <td>{{data.product2ID == null ? 'Not Defined' : data.product2ID}}</td>
-              <td>{{data.product3ID == null ? 'Not Defined' : data.product3ID}}</td>
-              <td>{{data.product4ID == null ? 'Not Defined' : data.product4ID}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <table class="table csvTable border m-0">
+        <thead>
+          <tr>
+            <th>User Id</th>
+            <th>Title</th>
+            <th>Inspirational Photo URL</th>
+            <th>ProductId 1</th>
+            <th>ProductId 2</th>
+            <th>ProductId 3</th>
+            <th>ProductId 4</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of allPost">
+            <td>{{data.userID == null ? 'Not Defined' : data.userID}} </td>
+            <td>{{data.title == null ? 'Not Defined' : data.title}}</td>
+            <td>{{data.inspirationalPhotoURL == null ? 'Not Defined' : data.inspirationalPhotoURL}}</td>
+            <td>{{data.product1ID == null ? 'Not Defined' : data.product1ID}}</td>
+            <td>{{data.product2ID == null ? 'Not Defined' : data.product2ID}}</td>
+            <td>{{data.product3ID == null ? 'Not Defined' : data.product3ID}}</td>
+            <td>{{data.product4ID == null ? 'Not Defined' : data.product4ID}}</td>
+            <td (click)="updatePost(data)" class="pl-4">
+              <i class="fas fa-edit pointer"></i>
+            </td>
+            <td (click)="deletePost(data)" class="pl-4">
+              <i class="fas fa-trash pointer"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-

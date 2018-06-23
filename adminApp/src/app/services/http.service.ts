@@ -111,4 +111,30 @@ export class HttpService {
     });
   }
 
+  updatePost(body) {
+    return new Promise((resolve, reject) => {
+      this.http.put(`${environment['apiHost']}newsfeed_post/updateNewsfeedPost`, body)
+        .subscribe((data) => {
+          if (data['status'] && data['status'] === 1) {
+            resolve(data);
+          } else {
+            reject(data);
+          }
+        });
+    });
+  }
+
+  deletePost(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(`${environment['apiHost']}newsfeed_post/deleteNewsfeedPost/${id}`)
+        .subscribe((data) => {
+          if (data['status'] && data['status'] === 1) {
+            resolve(data);
+          } else {
+            reject(data);
+          }
+        });
+    });
+  }
+
 }
