@@ -1,4 +1,3 @@
-<app-main-header></app-main-header>
 <div class="body">
     <div class="shared_contentholder">
         <div class="loader" *ngIf="!items.length" >
@@ -30,14 +29,14 @@
                 </div>
                 <div class="feed_content_photo w-container" routerLink="/collection/{{item.id}}">
                     <div class="feed_imgholder">
-                        <a class="link w-inline-block">
+                        <a class="link w-block">
                             <div *ngIf="!item.isImageLoaded" id="wave">
                                 <span class="dot"></span>
                                 <span class="dot"></span>
                                 <span class="dot"></span>
                             </div>
                             <div>
-                                <img [hidden]="item.isImageLoaded" src="{{item.inspirationalPhotoURL}}" (load)="item.isImageLoaded = true" class="mx-auto d-block">
+                                <img [hidden]="item.isImageLoaded" src="{{item.inspirationalPhotoURL}}" (load)="item.isImageLoaded = true" class="mx-auto d-block w-100">
                             </div>
                         </a>
                     </div>
