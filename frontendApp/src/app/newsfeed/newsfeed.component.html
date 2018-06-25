@@ -3,7 +3,7 @@
         <div class="loader" *ngIf="loading">
             <img src="assets/images/loading.svg" />
         </div>
-        <div id="blazyContainer" [bLazyLoadImages]="items" [bLazyOffset]="800" style="overflow: scroll;">
+        <div id="blazyContainer" [bLazyLoadImages]="items" [bLazyOffset]="100" style="overflow: scroll;">
             <div class="newsfeeds" *ngFor="let item of items; let i = index" appNovakClick>
                 <div class="feed_content_head w-container">
                     <div class="feed_title-container">
