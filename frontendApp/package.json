@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
     "@types/lodash": "^4.14.109",
-    "angular2-virtual-scroll": "^0.3.2",
     "bootstrap": "^4.1.1",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
