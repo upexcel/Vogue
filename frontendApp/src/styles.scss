@@ -270,8 +270,8 @@ a {
 }
 
 .novakbtn--effect-novak.novakbtn--click::after {
-    -webkit-animation: anim-effect-novak 0.5s infinite;
-    animation: anim-effect-novak 0.5s infinite;
+    -webkit-animation: anim-effect-novak 0.5s forwards;
+    animation: anim-effect-novak 0.5s forwards;
 }
 
 @-webkit-keyframes anim-effect-novak {

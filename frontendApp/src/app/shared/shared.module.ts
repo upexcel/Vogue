@@ -6,6 +6,7 @@ import { MainHeaderComponent } from './main-header/main-header.component';
 import { ApiService } from './api-service/api-service';
 import { LocalStorageService } from './commom/local-storage.service';
 import { NovakClickDirective } from './directives/novak-click-directive';
+import { BlazyDirective } from './directives/angular2-blazy';
 @NgModule({
   imports: [
     CommonModule
@@ -13,12 +14,14 @@ import { NovakClickDirective } from './directives/novak-click-directive';
   declarations: [
     LoaderComponent,
     MainHeaderComponent,
-    NovakClickDirective
+    NovakClickDirective,
+    BlazyDirective
   ],
   exports: [
     LoaderComponent,
     MainHeaderComponent,
-    NovakClickDirective
+    NovakClickDirective,
+    BlazyDirective
   ],
   providers: [
     ApiService,

@@ -14,6 +14,7 @@ export class NovakClickDirective implements OnInit {
     @HostListener('click', ['$event'])
     clickEvent(event) {
         event.preventDefault();
+        console.log(event)
         if (event.target['localName'] === 'img') {
             this.render.setElementClass(event.target['parentNode'], 'novakbtn', true);
             this.render.setElementClass(event.target['parentNode'], 'novakbtn--effect-novak', true);

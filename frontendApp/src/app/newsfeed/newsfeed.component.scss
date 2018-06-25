@@ -6,3 +6,9 @@
 .newsfeeds {
     height: auto !important;
 }
+.feed_imgholder {
+    div {
+        max-height: 400px;
+        overflow: hidden;
+    }
+}
