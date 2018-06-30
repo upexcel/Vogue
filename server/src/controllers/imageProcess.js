@@ -69,7 +69,7 @@ export class UserController extends BaseAPIController {
                                 if (validImages.length) {
                                     let image = validImages.splice(0, 1)[0];
                                     let imageUrl = `http://${req.hostname}:5001/controllers/files/${image.entry}`;
-                                    cloudinary.uploader.upload(imageUrl, function(result) {
+                                    cloudinary.uploader.upload(imageUrl, { use_filename: true }, function(result) {
                                         console.log(result.url)
                                         if (result) {
                                             finalImageUrls.push({ imageUrl: result.url, ProductId: image.Pid })
@@ -80,13 +80,12 @@ export class UserController extends BaseAPIController {
                                                 cloudImageUrls(validImages, directory, callback)
                                             } else {
                                                 callback(finalImageUrls)
+                                                rmdir(myDir + '/' + directory, function(error, data) {
+                                                    console.log(err)
+                                                });
                                             }
                                         }
-                                        //     //     rmdir(myDir + '/' + directory, function(error, data) {
-                                        //     //         console.log(err)
-                                        //     //     });
-                                        // }
-                                    });
+                                    }, { folder: 'Products', use_filename: true });
                                 } else {
                                     callback(finalImageUrls)
                                 }
