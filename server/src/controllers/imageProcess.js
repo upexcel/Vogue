@@ -80,13 +80,12 @@ export class UserController extends BaseAPIController {
                                                 cloudImageUrls(validImages, directory, callback)
                                             } else {
                                                 callback(finalImageUrls)
+                                                rmdir(myDir + '/' + directory, function(error, data) {
+                                                    console.log(err)
+                                                });
                                             }
                                         }
-                                        //     //     rmdir(myDir + '/' + directory, function(error, data) {
-                                        //     //         console.log(err)
-                                        //     //     });
-                                        // }
-                                    });
+                                    }, { folder: 'Products', use_filename: true });
                                 } else {
                                     callback(finalImageUrls)
                                 }
