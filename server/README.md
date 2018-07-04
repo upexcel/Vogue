@@ -615,7 +615,7 @@
 
 **11. Create products**
 ----
-  Create products.
+  Create products by uploading a tsv file.
 
 * **URL**
 
