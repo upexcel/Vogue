@@ -85,7 +85,7 @@ export class UserController extends BaseAPIController {
                                                 });
                                             }
                                         }
-                                    }, { folder: 'Products', use_filename: true });
+                                    }, { folder: 'Products', use_filename: true, unique_filename: false });
                                 } else {
                                     callback(finalImageUrls)
                                 }
