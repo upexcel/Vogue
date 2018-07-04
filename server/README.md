@@ -598,7 +598,7 @@
 
 
 
-**11. Show a newsFeedPost with associated products**
+ **11. Show a newsFeedPost with associated products**
 ----
 
   Show a newsFeedPost with associated user and products
@@ -729,7 +729,7 @@
 
 
 
-**13. Search Products**
+ **13. Search Products**
 ----
   Search products.
 
@@ -800,9 +800,9 @@
 
 
 
-  **12. Upload Images on Cloudinary**
+ **14. Upload Images on Cloudinary**
 ----
-  Upload images on cloudinary from a zip file.
+  Upload images on cloudinary from a zip file. Image name must match with a productID to assign that image to a particular product. It upload an image to cloudinary if a matching productID is found in db else image will not get uploaded on cloudinary and returned in errors in the response.
 
 * **URL**
 
