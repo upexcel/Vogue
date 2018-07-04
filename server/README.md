@@ -73,8 +73,10 @@
 
 
 
-**2. Show All Users**
+ **2. Show All Users**
 ----
+
+ Shows all the users in an array of Json.
 
 * **URL**
 
@@ -137,8 +139,10 @@
 
 
 
-**3. Update User profile**
+ **3. Update User profile**
 ----
+
+ Updates the profile of a particular user by his ID.
 
 * **URL**
 
@@ -169,24 +173,9 @@
   * **Code:** 200 <br />
     **Content:** ```{
     "status": 1,
-		"data": {
-        "id": 19,
-        "Name": "test1",
-        "Description": "erfew",
-        "Profile_photo_url": "xyz.jpg",
-        "CoatsAndJacketBudget": "100",
-        "DressesBudgets": "100",
-        "TrousersAndSkirtsBudget": "200",
-        "TopsBudget": "150",
-        "user_type": "Standard",
-        "ShoesAndBagsBudget": "150",
-        "ShopCategoriesID1": 1,
-        "ShopCategoriesID2": 2,
-        "ShopCategoriesID3": 3,
-        "ShopCategoriesID4": 4,
-        "updatedAt": "2018-07-03T11:25:38.160Z",
-        "createdAt": "2018-07-03T11:25:38.160Z"
-    }
+    "data": [
+        1
+    ]
 }```
  
 * **Error Response:**
@@ -198,7 +187,7 @@
 
   ```javascript
     $.ajax({
-      url: "/user/createUser",
+      url: "/user/updateUser",
       dataType: "application/json",
       type : "PUT",
       data: `requestPayload`,
@@ -211,8 +200,10 @@
 
 
 
-**4. Delete a User**
+ **4. Delete a User**
 ----
+
+ Delete a user by the ID.
 
 * **URL**
 
@@ -369,6 +360,8 @@
   **7. Show newsFeedPost with its user details**
 ----
 
+ Shows all the newsFeedPost in an array of Json.
+
 * **URL**
 
   /newsfeed_post/getNewsfeedPost/:limit/:page
@@ -440,6 +433,8 @@
   **8. Update a newsFeedPost**
 ----
 
+ Updates the field of a newsFeedPost
+
 * **URL**
 
   /newsfeed_post/updateNewsfeedPost
@@ -469,19 +464,9 @@
   * **Code:** 200 <br />
     **Content:** ```{
     "status": 1,
-    "data":
-    {
-        "id": 612,
-        "title": "test",
-        "userID": 1,
-        "inspirationalPhotoURL": "test.jpg",
-        "product1ID": "21",
-        "product2ID": "312",
-        "product3ID": "21",
-        "product4ID": "1212",
-        "updatedAt": "2018-07-03T12:44:27.147Z",
-        "createdAt": "2018-07-03T12:44:27.147Z"
-    }
+    "data": [
+        1
+    ]
 }```
  
 * **Error Response:**
@@ -507,6 +492,8 @@
 
   **9. Delete a newsFeedPost**
 ----
+
+ Deletes a newsFeedPost by his ID. 
 
 * **URL**
 
@@ -552,53 +539,7 @@
 
 
 
-**10. Show a newsFeedPost by id**
-----
-
-* **URL**
-
-  /newsfeed_post/deleteNewsfeedPost/:id
-
-* **Method:**
-
-  `GET`
-  
-*  **URL Params**
-
-*  **Required:**
- 
-   `id=[integer]`
-
-* **Data Params**
-
-  None
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `{"status": 1,"data": 1}`
- 
-* **Error Response:**
-
-  * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error :1, message: "<some db error default message>" }`
-
-* **Sample Call:**
-
-  ```javascript
-    $.ajax({
-      url: " /newsfeed_post/deleteNewsfeedPost/1",
-      dataType: "application/json",
-      type : "GET",
-      success : function(r) {
-        console.log(r);
-      }
-    });
-  ```
-
-
-
- **11. Show a newsFeedPost with associated products**
+ **10. Show a newsFeedPost with associated products**
 ----
 
   Show a newsFeedPost with associated user and products
@@ -672,7 +613,7 @@
 
 
 
-**12. Create products**
+**11. Create products**
 ----
   Create products.
 
@@ -729,9 +670,9 @@
 
 
 
- **13. Search Products**
+ **12. Search Products**
 ----
-  Search products.
+  Search products based on its productID.
 
 * **URL**
 
@@ -800,7 +741,7 @@
 
 
 
- **14. Upload Images on Cloudinary**
+ **13. Upload Images on Cloudinary**
 ----
   Upload images on cloudinary from a zip file. Image name must match with a productID to assign that image to a particular product. It upload an image to cloudinary if a matching productID is found in db else image will not get uploaded on cloudinary and returned in errors in the response.
 
